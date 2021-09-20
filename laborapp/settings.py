@@ -143,11 +143,6 @@ STATICFILES_DIRS = (
 AUTH_USER_MODEL='user_profile.UserProfile'
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')#para producción
-""" la anterior linea fue adicionaeda debido al error que se mostraba en HEROKU"""
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 CORS_ORIGIN_ALLOW_ALL = True # If this is used then `CORS_ORIGIN_WHITELIST` will not have any effect
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
