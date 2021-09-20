@@ -1,5 +1,5 @@
 """
-WSGI config for taskcontroller project.
+WSGI config for laborapp project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
