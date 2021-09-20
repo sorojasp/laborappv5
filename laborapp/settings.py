@@ -74,6 +74,19 @@ WSGI_APPLICATION = 'laborapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+"""
+        'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ingnova1_laborapp',
+        'USER': 'ingnova1_stiven',
+        'PASSWORD': '#Stiven1911',
+        'HOST': '199.79.62.144',
+        'PORT': '3306',
+    }
+    
+"""
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'mysql_cymysql',
@@ -83,6 +96,7 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306'
     }
+
 }
 
 
@@ -125,3 +139,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 AUTH_USER_MODEL='user_profile.UserProfile'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')#para producción
+""" la anterior linea fue adicionada debido al error que se mostraba en HEROKU"""
+
+
+
+CORS_ORIGIN_ALLOW_ALL = True # If this is used then `CORS_ORIGIN_WHITELIST` will not have any effect
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8100','http://localhost:4200'
+] # If this is used, then not need to use `CORS_ORIGIN_ALLOW_ALL = True`
+CORS_ORIGIN_REGEX_WHITELIST = [
+    'http://localhost:8100',
+]
