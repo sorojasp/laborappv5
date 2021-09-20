@@ -27,8 +27,5 @@ router.register('', user_views.UserView, basename="")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('task/', include('task.urls')),
-    path('subtask/', include('task.urls_subtask')),
-    path('user/', include(router.urls))
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  # para producción
