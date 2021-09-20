@@ -129,7 +129,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-#AUTH_USER_MODEL = 'user.MyUser'
+AUTH_USER_MODEL='user_profile.UserProfile'
+
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')#para producción
 """ la anterior linea fue adicionaeda debido al error que se mostraba en HEROKU"""
