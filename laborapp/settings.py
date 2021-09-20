@@ -99,12 +99,11 @@ DATABASES = {
         'PASSWORD': '#Stiven1911',
         'HOST': '199.79.62.144',
         'PORT': '3306',
-<<<<<<< HEAD
+
         }
-=======
->>>>>>> 7a23ab81509245557f8b2c01dc17f910545361fd
+
     }
-}
+
 
 
 # Password validation
