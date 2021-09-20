@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 #import pymysql#para entornos de desarrollo en ubuntu
-#import django_heroku  # para producción
+import django_heroku  # para producción
 #pymysql.install_as_MySQLdb()##para entornos de desarrollo en ubuntu
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -74,7 +74,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'taskcontroller.wsgi.application'
+WSGI_APPLICATION = 'laborapp.wsgi.application'
 
 
 # Database
