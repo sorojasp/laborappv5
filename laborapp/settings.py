@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware', #cors producción
 ]
 
-ROOT_URLCONF = 'taskcontroller.urls'
+ROOT_URLCONF = 'laborapp.urls'
 
 TEMPLATES = [
     {
