@@ -25,7 +25,7 @@ SECRET_KEY = '1hh#9waib*$mr!)ix$^!#_ll6v7i*a(92_oyxynabam8*tg3+l'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user_profile',
-    'corsheaders',# CORS SET #produccion
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',#cors producción
-    'django.middleware.common.CommonMiddleware', #cors producción
+    'django.middleware.common.CommonMiddleware',
     ]
 
 ROOT_URLCONF = 'laborapp.urls'
@@ -107,7 +107,7 @@ DATABASES = {
         'USER': 'ingnova1_stiven',
         'PASSWORD': '#Stiven1911',
         'HOST': '199.79.62.144',
-        'PORT': '3306'
+        'PORT': '3306',
         }
     }
 
@@ -150,11 +150,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
-AUTH_USER_MODEL='user_profile.UserProfile'
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')#para producción
-""" la anterior linea fue adicionada debido al error que se mostraba en HEROKU"""
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 
 
