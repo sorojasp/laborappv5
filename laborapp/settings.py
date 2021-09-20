@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'user_profile'
+    'user_profile',
+    'corsheaders',# CORS SET #produccion
 ]
 
 MIDDLEWARE = [
@@ -48,7 +49,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+    'corsheaders.middleware.CorsMiddleware',#cors producción
+    'django.middleware.common.CommonMiddleware', #cors producción
+    ]
 
 ROOT_URLCONF = 'laborapp.urls'
 
@@ -84,11 +87,7 @@ WSGI_APPLICATION = 'laborapp.wsgi.application'
         'PORT': '3306',
     }
     
-"""
-
-
-DATABASES = {
-    'default': {
+        'default': {
         'ENGINE': 'mysql_cymysql',
         'NAME': 'laborapp',
         'USER': 'root',
@@ -96,8 +95,22 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306'
     }
+    
+"""
 
-}
+
+DATABASES = {
+    'default':
+        {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ingnova1_laborapp',
+        'USER': 'ingnova1_stiven',
+        'PASSWORD': '#Stiven1911',
+        'HOST': '199.79.62.144',
+        'PORT': '3306'
+        }
+    }
+
 
 
 
