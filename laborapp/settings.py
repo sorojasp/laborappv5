@@ -40,15 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'user_profile',
-<<<<<<< HEAD
     'corsheaders',
 ]
-=======
-    'corsheaders',# CORS SET #produccion
 
->>>>>>> 7a23ab81509245557f8b2c01dc17f910545361fd
 
-]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -57,15 +53,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-<<<<<<< HEAD
     'corsheaders.middleware.CorsMiddleware',#cors producción
     'django.middleware.common.CommonMiddleware',
     ]
-=======
-    'corsheaders.middleware.CorsMiddleware',#cors producción
-    'django.middleware.common.CommonMiddleware', #cors producción
-]
->>>>>>> 7a23ab81509245557f8b2c01dc17f910545361fd
+
 
 ROOT_URLCONF = 'laborapp.urls'
 
@@ -148,18 +139,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-<<<<<<< HEAD
+
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-=======
 AUTH_USER_MODEL = 'user_profile.UserProfile'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')#para producción
 """ la anterior linea fue adicionaeda debido al error que se mostraba en HEROKU"""
->>>>>>> 7a23ab81509245557f8b2c01dc17f910545361fd
+
 
 
 
