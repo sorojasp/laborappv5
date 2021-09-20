@@ -16,12 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from user import views as user_views
 from django.conf.urls.static import static
 from django.conf import settings
 
-router: DefaultRouter = DefaultRouter()
-router.register('', user_views.UserView, basename="")
+
 
 
 
