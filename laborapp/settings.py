@@ -39,8 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'user_profile',
     'corsheaders',# CORS SET #produccion
+    'user_profile',
+     'rest_framework.authtoken',# cuando se hace esto se debe de hacer una migración ya que afecta las bases de datos,
+    
+    
+    
 
 
 ]
@@ -116,13 +120,15 @@ WSGI_APPLICATION = 'laborapp.wsgi.application'
 """
 
 DATABASES = {
-      'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ingnova1_laborapp',
-        'USER': 'ingnova1_stiven',
-        'PASSWORD': '#Stiven1911',
-        'HOST': '199.79.62.144',
+     'default': {
+        
+        'ENGINE': 'mysql_cymysql',
+        'NAME': 'laborapp',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
+        
     }
 }
 
