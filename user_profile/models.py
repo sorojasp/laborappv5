@@ -56,8 +56,21 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD='email' #overwrite USERNAME_FIELD by default
 
     is_authenticated:bool = False
-
-    #REQUIRED_FIELD=['name'] #Required when the user create a user
+    
+    
+    ## NEW FIELDS
+    
+    
+    """
+    tipodocumentopersona = models.CharField(db_column='tipoDocumentoPersona',  max_length=70, blank=True, null=True)  # Field name made lowercase.
+    numerodocumentopersona = models.IntegerField(db_column='numeroDocumentoPersona', blank=True, null=True)  # Field name made lowercase.
+    nombrespersona = models.CharField(db_column='nombresPersona', max_length=70, blank=True, null=True)  # Field name made lowercase.
+    apellidospersona = models.CharField(db_column='apellidosPersona', max_length=70, blank=True, null=True)  # Field name made lowercase.
+    fechanacimientopersona = models.DateField(db_column='fechaNacimientoPersona', blank=True, null=True)  # Field name made lowercase.
+    direccionpersona = models.CharField(db_column='direccionPersona', max_length=70, blank=True, null=True)  # Field name made lowercase.
+    generopersona = models.CharField(db_column='generoPersona', max_length=70, blank=True, null=True)  # Field name made lowercase.
+    lugarexpedicioncedulapersona = models.IntegerField(db_column='lugarExpedicionCedulaPersona', blank=True, null=True)  # Field name made lowercase.
+    """
 
     class Meta:
         permissions = [('can_eat_pizzas', 'Can eat pizzas'), ('can_view_passagers','can view passagers')]

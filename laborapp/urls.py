@@ -19,12 +19,14 @@ from django.conf.urls.static import static
 
 
 from django.conf import settings
-from user_profile import views
+from user_profile.views import UserProfile,UserLogin
+
 
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('user/', views.UserProfile.as_view()),
+    path('user/', UserProfile.as_view()),
+    path('user/login', UserLogin.as_view()),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # para producción
