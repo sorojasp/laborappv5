@@ -20,13 +20,13 @@ from django.conf.urls.static import static
 
 from django.conf import settings
 from user_profile.views import UserProfile,UserLogin
-
-
+from personas.views import Personas as PersonasView
 
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
     path('user/', UserProfile.as_view()),
     path('user/login', UserLogin.as_view()),
+    path('personas/',PersonasView.as_view())
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # para producción

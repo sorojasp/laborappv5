@@ -62,18 +62,11 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     
     
     """
-    tipodocumentopersona = models.CharField(db_column='tipoDocumentoPersona',  max_length=70, blank=True, null=True)  # Field name made lowercase.
-    numerodocumentopersona = models.IntegerField(db_column='numeroDocumentoPersona', blank=True, null=True)  # Field name made lowercase.
-    nombrespersona = models.CharField(db_column='nombresPersona', max_length=70, blank=True, null=True)  # Field name made lowercase.
-    apellidospersona = models.CharField(db_column='apellidosPersona', max_length=70, blank=True, null=True)  # Field name made lowercase.
-    fechanacimientopersona = models.DateField(db_column='fechaNacimientoPersona', blank=True, null=True)  # Field name made lowercase.
-    direccionpersona = models.CharField(db_column='direccionPersona', max_length=70, blank=True, null=True)  # Field name made lowercase.
-    generopersona = models.CharField(db_column='generoPersona', max_length=70, blank=True, null=True)  # Field name made lowercase.
-    lugarexpedicioncedulapersona = models.IntegerField(db_column='lugarExpedicionCedulaPersona', blank=True, null=True)  # Field name made lowercase.
+   
     """
 
-    class Meta:
-        permissions = [('can_eat_pizzas', 'Can eat pizzas'), ('can_view_passagers','can view passagers')]
+    #class Meta:
+        #permissions = [('can_eat_pizzas', 'Can eat pizzas'), ('can_view_passagers','can view passagers')]
 
 
     def get_full_name(self):
@@ -88,3 +81,21 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         """Return string representation of user"""
         return self.email
+    
+class Departamentos(models.Model):
+    id_departamento = models.AutoField(primary_key=True)
+    departamento = models.CharField(max_length=255)
+
+    class Meta:
+        managed = False
+        db_table = 'departamentos'
+
+class Municipios(models.Model):
+    id_municipio = models.AutoField(primary_key=True)
+    municipio = models.CharField(max_length=255)
+    estado = models.PositiveIntegerField()
+    departamento_id = models.PositiveIntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'municipios'

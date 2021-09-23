@@ -32,19 +32,17 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    #'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'corsheaders',# CORS SET #produccion
     'user_profile',
-     'rest_framework.authtoken',# cuando se hace esto se debe de hacer una migración ya que afecta las bases de datos,
-    
-    
-    
+    'rest_framework.authtoken',
+    'personas',
+    'prueba'
 
 
 ]
