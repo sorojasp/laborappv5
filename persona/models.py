@@ -27,4 +27,4 @@ class IdModel(models.Model):
     tipodocumentopersona = models.CharField(db_column='tipoDocumentoPersona',  max_length=70, blank=True, null=True)  # Field name made lowercase.
     numerodocumentopersona = models.IntegerField(db_column='numeroDocumentoPersona', blank=True, null=True)  # Field name made lowercase.
     lugarexpedicioncedulapersona =  models.ForeignKey(user_profile_models.Municipios, on_delete=models.CASCADE)
-    
+    fechaexpedicioncedulapersona = models.DateTimeField(null=True)

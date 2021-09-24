@@ -211,6 +211,7 @@ class IdentificationDocument(APIView):
             persona=person_obj,
             tipodocumentopersona = request.data['tipodocumentopersona'],  # Field name made lowercase.
             numerodocumentopersona=request.data['numerodocumentopersona'],
+            fechaexpedicioncedulapersona=request.data['fechaexpedicioncedulapersona'],
             lugarexpedicioncedulapersona = models.Municipios.objects.get(id_municipio=request.data['lugarexpedicioncedulapersona'])
             )
             
