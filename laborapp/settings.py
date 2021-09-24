@@ -118,12 +118,11 @@ WSGI_APPLICATION = 'laborapp.wsgi.application'
 
 DATABASES = {
      'default': {
-        
-        'ENGINE': 'mysql_cymysql',
-        'NAME': 'laborapp',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ingnova1_laborapp',
+        'USER': 'ingnova1_stiven',
+        'PASSWORD': '#Stiven1911',
+        'HOST': '199.79.62.144',
         'PORT': '3306',
         
     }
