@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from user_profile.views import UserProfile,UserLogin
 from persona.views import Personas as PersonaView
+from persona.views import IdentificationDocument
 
 
 
@@ -28,5 +29,6 @@ urlpatterns = [
     #path('admin/', admin.site.urls),
     path('user/', UserProfile.as_view()),
     path('user/login', UserLogin.as_view()),
-    path('persona/',PersonaView.as_view())
+    path('persona/',PersonaView.as_view()),
+    path('persona/document', IdentificationDocument.as_view()),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # para producción

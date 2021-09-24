@@ -23,7 +23,7 @@ class PersonModel(models.Model):
 class IdModel(models.Model):
     
     id = models.AutoField(primary_key=True)
-    persona=models.ForeignKey(PersonModel, on_delete=models.CASCADE)
+    persona=models.ForeignKey(PersonModel, on_delete=models.CASCADE,blank=True, null=True)
     tipodocumentopersona = models.CharField(db_column='tipoDocumentoPersona',  max_length=70, blank=True, null=True)  # Field name made lowercase.
     numerodocumentopersona = models.IntegerField(db_column='numeroDocumentoPersona', blank=True, null=True)  # Field name made lowercase.
     lugarexpedicioncedulapersona =  models.ForeignKey(user_profile_models.Municipios, on_delete=models.CASCADE)

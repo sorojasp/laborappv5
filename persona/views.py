@@ -4,14 +4,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from persona.models import PersonModel,IdModel
+from user_profile import models
 from user_profile.models import UserProfile,Departamentos,Municipios
 
 from django.core import serializers
 import json 
 
 class Personas(APIView):
-    
-    
     
     def get(self, request, *args, **kwargs):
         try:
@@ -27,11 +26,11 @@ class Personas(APIView):
             data=None
               
             if amount =='one':
-                find_user=PersonModel.objects.filter(id=int(request.query_params.get('id')))
-                data=find_user             
+                find_person=PersonModel.objects.filter(id=int(request.query_params.get('id')))
+                data=find_person             
             elif amount =='all':
-                all_user=PersonModel.objects.all()
-                data=all_user
+                all_person=PersonModel.objects.all()
+                data=all_person
                 
             response['data']=json.loads(serializers.serialize('json', data))
             response['result']=True
@@ -151,3 +150,118 @@ class Personas(APIView):
 
             
         return Response({"data":response,},status=status)
+    
+    
+class IdentificationDocument(APIView):
+    
+        
+    def get(self, request, *args, **kwargs):
+        try:
+
+            status=200
+            amount=str(request.query_params.get('amount'))
+            response={
+                'result':None,
+                'data':None,
+                'detail':None
+                }
+        
+            data=None
+              
+            if amount =='one':
+                find_document=IdModel.objects.filter(id=int(request.query_params.get('id')))
+                data=find_document          
+            elif amount =='all':
+                all_user=IdModel.objects.all()
+                data=all_user
+                
+            response['data']=json.loads(serializers.serialize('json', data))
+            response['result']=True
+            response['detail']= "consulta exitosa"
+            status=200
+        except Exception as error: 
+            print(error)
+            response['result']=False
+            response['detail']= error
+            status=500
+        
+        return Response({"data":response,
+                        },status=status)
+    
+    
+    def post(self, request, *args, **kwargs):
+        
+        status=500
+        
+        response={
+            'result':False,
+            'data':None,
+            'detail':None
+            }
+        
+        person_obj=None
+        
+        
+        try:
+            if request.data['person_id']!='None':
+                person_obj = PersonModel.objects.get(id=request.data['person_id'])
+                
+          
+            doc_obj=IdModel.objects.create(
+            persona=person_obj,
+            tipodocumentopersona = request.data['tipodocumentopersona'],  # Field name made lowercase.
+            numerodocumentopersona=request.data['numerodocumentopersona'],
+            lugarexpedicioncedulapersona = models.Municipios.objects.get(id_municipio=request.data['lugarexpedicioncedulapersona'])
+            )
+            
+         
+            
+            status=200
+            response['result']=True
+            response['data']={
+                'id_document': doc_obj.id
+            }            
+        except Exception as e:
+            response['details']=e
+            print(e)
+            
+        return Response(response,status=status) 
+            
+            
+    def patch(self,request,format=None,pk=None):
+        
+        status=500
+        
+        response={
+            'result':False,
+            'data':None,
+            'detail':None
+            }
+
+        
+        try:
+            
+            
+            document_obj=IdModel.objects.update_or_create(id=request.query_params.get('id'),
+                                                                        defaults=request.data)
+            
+            print(document_obj)
+            
+            status=200
+            response['result']=True
+            response['detail']='Actualización realizada con éxito'
+            
+        except Exception as error:
+            print("error in update process:", error)
+            response['detail']=error
+            
+        
+        return Response(response,status=status)
+    
+    
+    def delete(self,request,format=None,pk=None):
+        return Response({
+            'msg':'No needed yet'},status=200)
+        
+        
+    
