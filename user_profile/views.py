@@ -54,7 +54,7 @@ class UserProfile(APIView):
             
             
         return Response({"data":response,
-                        "pk": pk},status=status)
+                        },status=status)
         
     
     def post(self,request,format=None,pk=None):
@@ -105,7 +105,7 @@ class UserProfile(APIView):
         status=500
         
         response={
-            'result':None,
+            'result':False,
             'data':None,
             'detail':None
             }
@@ -123,12 +123,15 @@ class UserProfile(APIView):
             
             print(userProfile_obj)
             
+            response['result']=True
+            response['detail']='Actualización realizada con éxito'
+            
         except Exception as error:
             print("error in update process:", error)
             
             
         
-        return Response({'saludo':'great'},200)
+        return Response(response,200)
  
  
     def delete(self,request,format=None,pk=None):

@@ -86,16 +86,14 @@ class Departamentos(models.Model):
     id_departamento = models.AutoField(primary_key=True)
     departamento = models.CharField(max_length=255)
 
-    class Meta:
-        managed = False
-        db_table = 'departamentos'
+   
 
 class Municipios(models.Model):
     id_municipio = models.AutoField(primary_key=True)
     municipio = models.CharField(max_length=255)
     estado = models.PositiveIntegerField()
-    departamento_id = models.PositiveIntegerField()
+    departamento_id = models.ForeignKey(Departamentos,on_delete=models.CASCADE)
+    
+    #models.PositiveIntegerField()
 
-    class Meta:
-        managed = False
-        db_table = 'municipios'
+   
