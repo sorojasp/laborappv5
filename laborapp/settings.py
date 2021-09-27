@@ -188,7 +188,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 #para entornos de desarollo******
 
 
-#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')#para producción
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')#para producción
 """ la anterior linea fue adicionaeda debido al error que se mostraba en HEROKU"""
 
 
