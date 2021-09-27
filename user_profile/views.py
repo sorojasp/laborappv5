@@ -20,6 +20,8 @@ class UserProfile(APIView):
 
     
     def get (self, request,format=None, pk=None):
+        
+        print("u are reach the get....")
         try:
 
             status=200

@@ -26,13 +26,13 @@ SECRET_KEY = '_a4olqm7h!k+$04mbl&*(duyj&&!a5(8f=c^fht@s^3776+n1)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    #'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -42,10 +42,18 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'persona',
+    'corsheaders',
 
 
 ]
 MIDDLEWARE = [
+    
+    
+    'corsheaders.middleware.CorsMiddleware',#cors producción
+    'django.middleware.common.CommonMiddleware', #cors producción
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',  # **cors......
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "corsheaders.middleware.CorsPostCsrfMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,9 +61,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',#cors producción
-    'django.middleware.common.CommonMiddleware', #cors producción
+    
 ]
+
+
 
 ROOT_URLCONF = 'laborapp.urls'
 
@@ -118,7 +127,7 @@ WSGI_APPLICATION = 'laborapp.wsgi.application'
 
 DATABASES = {
      'default': {
-         'ENGINE': 'django.db.backends.mysql',
+          'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ingnova1_laborapp',
         'USER': 'ingnova1_stiven',
         'PASSWORD': '#Stiven1911',
@@ -168,16 +177,18 @@ USE_TZ = True
 STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'user_profile.UserProfile'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')#para producción
+
+#Para entornos de desarrollo*******
+
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+
+#para entornos de desarollo******
+
+
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')#para producción
 """ la anterior linea fue adicionaeda debido al error que se mostraba en HEROKU"""
 
 
-
-CORS_ORIGIN_ALLOW_ALL = True # If this is used then `CORS_ORIGIN_WHITELIST` will not have any effect
-CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:8100','http://localhost:4200'
-] # If this is used, then not need to use `CORS_ORIGIN_ALLOW_ALL = True`
-CORS_ORIGIN_REGEX_WHITELIST = [
-    'http://localhost:8100',
-]
