@@ -22,13 +22,15 @@ from django.conf import settings
 from user_profile.views import UserProfile,UserLogin
 from persona.views import Personas as PersonaView
 from persona.views import IdentificationDocument
-
+from user_profile.views import Departamentos, Municipios
 
 
 urlpatterns = [
-    #path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('user/', UserProfile.as_view()),
-    path('user/login', UserLogin.as_view()),
+    path('user/login/', UserLogin.as_view()),
     path('persona/',PersonaView.as_view()),
-    path('persona/document', IdentificationDocument.as_view()),
+    path('persona/document/', IdentificationDocument.as_view()),
+    path('departments/',Departamentos.as_view()),
+    path('municipios/', Municipios.as_view()),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # para producción

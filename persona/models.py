@@ -13,7 +13,7 @@ class PersonModel(models.Model):
     fechanacimientopersona = models.DateField(db_column='fechaNacimientoPersona', blank=True, null=True)  # Field name made lowercase.
     direccionpersona = models.CharField(db_column='direccionPersona', max_length=70, blank=True, null=True)  # Field name made lowercase.
     generopersona = models.CharField(db_column='generoPersona', max_length=70, blank=True, null=True)  # Field name made lowercase.
-    lugarresidenciapersona =  models.ForeignKey(user_profile_models.Municipios, on_delete=models.CASCADE)
+    lugarresidenciapersona =  models.ForeignKey(user_profile_models.Municipios, on_delete=models.CASCADE,  blank=True, null=True)
     is_active=models.BooleanField(default=True)
 
     
@@ -26,5 +26,5 @@ class IdModel(models.Model):
     persona=models.ForeignKey(PersonModel, on_delete=models.CASCADE,blank=True, null=True)
     tipodocumentopersona = models.CharField(db_column='tipoDocumentoPersona',  max_length=70, blank=True, null=True)  # Field name made lowercase.
     numerodocumentopersona = models.IntegerField(db_column='numeroDocumentoPersona', blank=True, null=True)  # Field name made lowercase.
-    lugarexpedicioncedulapersona =  models.ForeignKey(user_profile_models.Municipios, on_delete=models.CASCADE)
-    fechaexpedicioncedulapersona = models.DateTimeField(null=True)
+    lugarexpedicioncedulapersona =  models.ForeignKey(user_profile_models.Municipios, on_delete=models.CASCADE, blank=True, null=True)
+    fechaexpedicioncedulapersona = models.DateTimeField(null=True , blank=True)

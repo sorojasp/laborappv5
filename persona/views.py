@@ -27,6 +27,7 @@ class Personas(APIView):
               
             if amount =='one':
                 find_person=PersonModel.objects.filter(id=int(request.query_params.get('id')))
+                print(find_person)
                 data=find_person             
             elif amount =='all':
                 all_person=PersonModel.objects.all()
@@ -37,9 +38,9 @@ class Personas(APIView):
             response['detail']= "consulta exitosa"
             status=200
         except Exception as error: 
-            print(error)
+            print("** error in get of person:  ",error)
             response['result']=False
-            response['detail']= error
+            response['detail']= str(error)
             status=500
         
         return Response({"data":response,
@@ -79,7 +80,7 @@ class Personas(APIView):
                 'id_person':person_obj.id
             }            
         except Exception as e:
-            response['details']=e
+            response['details']=str(e)
             
         return Response(response,status=status) 
             
@@ -100,6 +101,8 @@ class Personas(APIView):
         
         try:
             
+            print("data: ", request.data)
+            
             
             person_obj=PersonModel.objects.update_or_create(id=request.query_params.get('id'),
                                                                         defaults=request.data)
@@ -112,7 +115,7 @@ class Personas(APIView):
             
         except Exception as error:
             print("error in update process:", error)
-            response['detail']=error
+            response['detail']=f"{str(error)}"
             
         
         return Response(response,status=status)
@@ -242,11 +245,13 @@ class IdentificationDocument(APIView):
         
         try:
             
-            
+            print("data: ", request.data)
+            print("document: ", request.query_params.get('id'))
             document_obj=IdModel.objects.update_or_create(id=request.query_params.get('id'),
                                                                         defaults=request.data)
             
             print(document_obj)
+            
             
             status=200
             response['result']=True
@@ -254,7 +259,7 @@ class IdentificationDocument(APIView):
             
         except Exception as error:
             print("error in update process:", error)
-            response['detail']=error
+            response['detail']=str(error)
             
         
         return Response(response,status=status)

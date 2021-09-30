@@ -17,8 +17,6 @@ from utils.sender_email.EnviadorCorreos import EnviadorCorreos
 
 class UserProfile(APIView):
     
-
-    
     def get (self, request,format=None, pk=None):
         
         print("u are reach the get....")
@@ -49,7 +47,7 @@ class UserProfile(APIView):
         except Exception as error: 
             print(error)
             response['result']=False
-            response['detail']= error
+            response['detail']= str(error)
             status=500
         
         
@@ -58,7 +56,6 @@ class UserProfile(APIView):
         return Response({"data":response,
                         },status=status)
         
-    
     def post(self,request,format=None,pk=None):
         encrypt=Encrypt()
         enviador_correos:EnviadorCorreos=EnviadorCorreos()
@@ -96,11 +93,10 @@ class UserProfile(APIView):
         except IntegrityError:
             response['detail']='correo ya existe en laborapp'
         except Exception as error:
-            response['detail']=error
+            response['detail']=str(error)
             
             
         return Response(response,status=status) 
-    
     
     def patch(self,request,format=None,pk=None):
         
@@ -130,12 +126,13 @@ class UserProfile(APIView):
             
         except Exception as error:
             print("error in update process:", error)
+            response['detail']=str(error)
             
             
         
         return Response(response,200)
  
- 
+
     def delete(self,request,format=None,pk=None):
         
         status=500
@@ -164,14 +161,12 @@ class UserProfile(APIView):
                 response['data']=json.loads(serializers.serialize('json', obj_user))
                 
         except Exception as error:
-            response['detail'] = f"error:{error}"
+            response['detail'] = f"error:{str(error)}"
 
             
         return Response({"data":response,},status=status)
             
             
-        
-
 class UserLogin(APIView):
     
     def get(self,request,format=None,pk=None):
@@ -203,8 +198,88 @@ class UserLogin(APIView):
                 
         except Exception as error:
             response['result'] = False
-            response['detail']=error
+            response['detail']=str(error)
             
         
     
         return Response({'data':response},status)
+    
+    
+class Departamentos(APIView):
+    
+    
+    def get(self, request,format=None,pk=None):
+        
+        try:
+            status=200
+            amount=str(request.query_params.get('amount'))
+            response={
+                'result':None,
+                'data':None,
+                'detail':None
+                }
+        
+            data=None
+            
+                            
+            if amount =='one':
+                find_deparment=models.Departamentos.objects.filter( id_departamento=request.query_params.get('id'))
+                data=find_deparment             
+            elif amount =='all':
+                all_deparments=models.Departamentos.objects.all()
+                data=all_deparments
+                
+            response['data']=json.loads(serializers.serialize('json', data))
+            response['result']=True
+            response['detail']= "consulta exitosa"
+            status=200
+        except Exception as error: 
+            print(error)
+            response['result']=False
+            response['detail']= str(error)
+            status=500
+        
+        
+        return Response({'data':response}, status=status)
+
+
+class Municipios(APIView):
+    
+    
+    
+    def get(self, request,format=None,pk=None):
+        
+        try:
+            status=200
+            amount=str(request.query_params.get('amount'))
+            response={
+                'result':None,
+                'data':None,
+                'detail':None
+                }
+        
+            data=None
+            
+                            
+            if amount =='one':
+                find_municipios=models.Municipios.objects.filter( id_municipio=request.query_params.get('id'))
+                data=find_municipios     
+                        
+            elif amount =='all':
+                
+                obj_deparment = models.Departamentos.objects.get(id_departamento=request.query_params.get('id'))
+                all_municipios=models.Municipios.objects.filter(departamento_id = obj_deparment )
+                data=all_municipios
+                
+            response['data']=json.loads(serializers.serialize('json', data))
+            response['result']=True
+            response['detail']= "consulta exitosa"
+            status=200
+        except Exception as error: 
+            print(error)
+            response['result']=False
+            response['detail']= str(error)
+            status=500
+        
+        
+        return Response({'data':response}, status=status)

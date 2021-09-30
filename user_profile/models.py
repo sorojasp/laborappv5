@@ -45,7 +45,8 @@ class UserProfileManager(BaseUserManager):
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
     """Database model for users in the system"""
-
+    
+    id = models.BigAutoField(primary_key=True)
     email=models.EmailField(max_length=255, unique=True)
     name= models.CharField(max_length=255)
     is_active=models.BooleanField(default=True)
@@ -83,13 +84,13 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
         return self.email
     
 class Departamentos(models.Model):
-    id_departamento = models.AutoField(primary_key=True)
+    id_departamento = models.BigAutoField(primary_key=True)
     departamento = models.CharField(max_length=255)
 
    
 
 class Municipios(models.Model):
-    id_municipio = models.AutoField(primary_key=True)
+    id_municipio = models.BigAutoField(primary_key=True)
     municipio = models.CharField(max_length=255)
     estado = models.PositiveIntegerField()
     departamento_id = models.ForeignKey(Departamentos,on_delete=models.CASCADE)
