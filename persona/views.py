@@ -185,7 +185,7 @@ class IdentificationDocument(APIView):
         except Exception as error: 
             print(error)
             response['result']=False
-            response['detail']= error
+            response['detail']=str(error)
             status=500
         
         return Response({"data":response,
@@ -226,7 +226,7 @@ class IdentificationDocument(APIView):
                 'id_document': doc_obj.id
             }            
         except Exception as e:
-            response['details']=e
+            response['details']= str(e)
             print(e)
             
         return Response(response,status=status) 
