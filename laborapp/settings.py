@@ -40,12 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'user_profile',
-    'rest_framework.authtoken',
+    'rest_framework.authtoken',# danger....is very important make a migration and dont use Token of this library before that installed
     'persona',
     'corsheaders',
-    'consultorioJuridico'
-
-
+    'consultorioJuridico',
+    'persona_natural',
+    'empresa'
 ]
 MIDDLEWARE = [
     
@@ -128,7 +128,7 @@ WSGI_APPLICATION = 'laborapp.wsgi.application'
 
 DATABASES = {
      'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'mysql_cymysql',
         'NAME': 'ingnova1_laborapp',
         'USER': 'ingnova1_stiven',
         'PASSWORD': '#Stiven1911',

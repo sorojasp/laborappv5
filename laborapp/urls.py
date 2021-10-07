@@ -24,6 +24,7 @@ from persona.views import Personas as PersonaView
 from persona.views import IdentificationDocument
 from user_profile.views import Departamentos, Municipios
 from consultorioJuridico.views import ConsultorioJuridico
+from persona_natural.views import PersonaNatural
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,5 +34,7 @@ urlpatterns = [
     path('persona/document/', IdentificationDocument.as_view()),
     path('departments/',Departamentos.as_view()),
     path('municipios/', Municipios.as_view()),
-    path('consultorios/',ConsultorioJuridico.as_view() )
+    path('consultorios/',ConsultorioJuridico.as_view()),
+    path('persona-natural/',PersonaNatural.as_view())
+    
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # para producción
