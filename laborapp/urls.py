@@ -25,6 +25,9 @@ from persona.views import IdentificationDocument
 from user_profile.views import Departamentos, Municipios
 from consultorioJuridico.views import ConsultorioJuridico
 from persona_natural.views import PersonaNatural
+from empresa.views  import EmpresaViews
+
+from contratoLaboral.views import ContratoLaboralView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,6 +38,8 @@ urlpatterns = [
     path('departments/',Departamentos.as_view()),
     path('municipios/', Municipios.as_view()),
     path('consultorios/',ConsultorioJuridico.as_view()),
-    path('persona-natural/',PersonaNatural.as_view())
-    
+    path('persona-natural/',PersonaNatural.as_view()),
+    path('empresa/',EmpresaViews.as_view()),
+    path('contrato-laboral/', ContratoLaboralView.as_view(),)
+
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # para producción

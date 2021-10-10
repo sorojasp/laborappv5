@@ -45,11 +45,12 @@ INSTALLED_APPS = [
     'corsheaders',
     'consultorioJuridico',
     'persona_natural',
-    'empresa'
+    'empresa',
+    'contratoLaboral'
 ]
 MIDDLEWARE = [
-    
-    
+
+
     'corsheaders.middleware.CorsMiddleware',#cors producción
     'django.middleware.common.CommonMiddleware', #cors producción
     'django.middleware.clickjacking.XFrameOptionsMiddleware',  # **cors......
@@ -62,7 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
+
 ]
 
 
@@ -91,7 +92,7 @@ WSGI_APPLICATION = 'laborapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-""" 
+"""
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ingnova1_laborapp',
@@ -100,8 +101,8 @@ WSGI_APPLICATION = 'laborapp.wsgi.application'
         'HOST': '199.79.62.144',
         'PORT': '3306',
     }
-    
-    
+
+
     'default': {
     'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ingnova1_prueba',
@@ -109,19 +110,19 @@ WSGI_APPLICATION = 'laborapp.wsgi.application'
         'PASSWORD': '#Stiven1911',
         'HOST': '199.79.62.144',
         'PORT': '3306',
-        
+
         }
-        
-        
+
+
     'default': {
-        
+
         'ENGINE': 'mysql_cymysql',
         'NAME': 'laborapp',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': '3306',
-        
+
     }
 
 """
@@ -134,7 +135,7 @@ DATABASES = {
         'PASSWORD': '#Stiven1911',
         'HOST': '199.79.62.144',
         'PORT': '3306',
-        
+
     }
 }
 
@@ -191,5 +192,3 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')#para producción
 """ la anterior linea fue adicionaeda debido al error que se mostraba en HEROKU"""
-
-
