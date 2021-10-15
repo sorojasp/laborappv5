@@ -236,9 +236,9 @@ class Demandaempresa(models.Model):
 
 
 class Demandapersonanatural(models.Model):
-    iddemandapersonanatural = models.AutoField(db_column='idDemandaPersonaNatural', primary_key=True)  # Field name made lowercase.
+    id = models.AutoField(db_column='idDemandaPersonaNatural', primary_key=True)  # Field name made lowercase.
     fechademandapersonanatural = models.DateField(db_column='fechaDemandaPersonaNatural')  # Field name made lowercase.
-    codigociudad = models.ForeignKey(Ciudades, models.DO_NOTHING, db_column='codigoCiudad')  # Field name made lowercase.
+    codigociudad = models.ForeignKey(Ciudades, models.DO_NOTHING, db_column='codigoCiudad') #****** # Field name made lowercase.
     tipodocumentopersona = models.ForeignKey('Personas', models.DO_NOTHING, db_column='tipoDocumentoPersona')  # Field name made lowercase.
     numerodocumentopersona = models.ForeignKey('Personas', models.DO_NOTHING, db_column='numeroDocumentoPersona')  # Field name made lowercase.
     idpersonanatural = models.ForeignKey('Personanatural', models.DO_NOTHING, db_column='IdPersonaNatural')  # Field name made lowercase.

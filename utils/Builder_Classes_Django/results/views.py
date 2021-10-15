@@ -11,10 +11,11 @@ import json
 
 #import models from another apps
 
-from user_profile.models import Municipios
-from persona.models import PersonModel
-from persona_natural.models import PersonaNaturalModel
-from contratoLaboral.models import ContratoLaboralModel
+from ubicacion.models import UbicacionModel
+from personaNatural.models import PersonanaturalModel
+from contrato.models import ContratoModel
+
+
 
 
 class DemandaPersonaNaturalViews(APIView):
@@ -23,7 +24,7 @@ class DemandaPersonaNaturalViews(APIView):
 
         queryset = DemandaPersonaNaturalModel.objects.all()
 
-
+        
 
         def get(self, request,  format=None, *args, **kwargs):
             try:
@@ -70,29 +71,28 @@ class DemandaPersonaNaturalViews(APIView):
                 }
 
             persona=None
-            ubicacion=None
-            contrato=None
+            municipio=None
             try:
 
-                if request.data['ubicacion_id']!='None':
-                    ubicacion = Municipios.objects.get(id_municipio=request.data['ubicacion_id'])
+                                if request.data['ubicacion_id']!='None':
+                    ubicacion = MunicipiosModel.objects.get(id=request.data['ubicacion_id'])
                 if request.data['personaNatural_id']!='None':
-                    personaNatural = PersonaNaturalModel.objects.get(idPersonaNatural=request.data['personaNatural_id'])
+                    personaNatural = PersonaNaturalModel.objects.get(id=request.data['personaNatural_id'])
                 if request.data['contrato_id']!='None':
                     contrato = ContratoLaboralModel.objects.get(id=request.data['contrato_id'])
 
                 DemandaPersonaNaturalModel.objects.create(
-                      superaminimacuantiapersnat = request.data["superaminimacuantiapersnat"],
+                      superaminimacuantiapersna = request.data["superaminimacuantiapersna"],
                                     montototaldemandapersnat = request.data["montototaldemandapersnat"],
                                     respuestafinaldemandaersonan = request.data["respuestafinaldemandaersonan"],
                                     informedesicionfinaldemandapersonan = request.data["informedesicionfinaldemandapersonan"],
-                                     fecharrealradicacionderechopetipersonan = request.data["fecharrealradicacionderechopetipersonan"],
+                                     fecharrealradicacionderechopetipersonan = request.data[" fecharrealradicacionderechopetipersonan"],
                                     fechapropuestaradicacionderechopetipersona = request.data["fechapropuestaradicacionderechopetipersona"],
-                                     fecharrealradicaciondemandapersonan = request.data["fecharrealradicaciondemandapersonan"],
-                                     fechapropuestaradicaciondemandapersonan = request.data["fechapropuestaradicaciondemandapersonan"],
+                                     fecharrealradicaciondemandapersonan = request.data[" fecharrealradicaciondemandapersonan"],
+                                     fechapropuestaradicaciondemandapersonan = request.data[" fechapropuestaradicaciondemandapersonan"],
                                     contrato = request.data["contrato_id"],
                                     personaNatural = request.data["personaNatural_id"],
-                                    ubicacion = ubicacion,
+                                    ubicacion = request.data["ubicacion_id"],
               )
 
 
@@ -176,3 +176,10 @@ class DemandaPersonaNaturalViews(APIView):
 
 
             return Response({"data":response,},status=status)
+
+
+
+
+
+
+        

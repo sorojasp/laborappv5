@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'consultorioJuridico',
     'persona_natural',
     'empresa',
-    'contratoLaboral'
+    'contratoLaboral',
+    'demandaPersonaNatural'
 ]
 MIDDLEWARE = [
 

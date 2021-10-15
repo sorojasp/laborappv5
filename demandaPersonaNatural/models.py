@@ -2,12 +2,20 @@ from django.db import models
 
 
 
-class Demandapersonanatural(models.Model):
+from user_profile.models import Municipios
+from persona.models import PersonModel
+from persona_natural.models import PersonaNaturalModel
+from contratoLaboral.models import ContratoLaboralModel
+
+
+class DemandaPersonaNaturalModel(models.Model):
     id = models.AutoField(db_column='id', primary_key=True)  # Field name made lowercase.
     fechademandapersonanatural = models.DateField(db_column='fechaDemandaPersonaNatural')  # Field name made lowercase.
-    codigociudad = models.ForeignKey(Ciudades, models.DO_NOTHING, db_column='codigoCiudad')  # Field name made lowercase.
-    idpersonanatural = models.ForeignKey('Personanatural', models.DO_NOTHING, db_column='IdPersonaNatural')  # Field name made lowercase.
-    idcontrato = models.ForeignKey(Contratolaboral, models.DO_NOTHING, db_column='idContrato')  # Field name made lowercase.
+
+    ubicacion = models.ForeignKey(Municipios, models.DO_NOTHING, db_column='ubicacion')  # Field name made lowercase.
+    personanatural = models.ForeignKey(PersonaNaturalModel, models.DO_NOTHING, db_column='personaNatural')  # Field name made lowercase.
+    contrato = models.ForeignKey(ContratoLaboralModel, models.DO_NOTHING, db_column='contrato')  # Field name made lowercase.
+
     fechapropuestaradicaciondemandapersonan = models.DateField(db_column='fechaPropuestaRadicacionDemandaPersonaN', blank=True, null=True)  # Field name made lowercase.
     fecharrealradicaciondemandapersonan = models.DateField(db_column='fecharRealRadicacionDemandaPersonaN', blank=True, null=True)  # Field name made lowercase.
     fechapropuestaradicacionderechopetipersonan = models.DateField(db_column='fechaPropuestaRadicacionDerechoPetiPersonaN', blank=True, null=True)  # Field name made lowercase.

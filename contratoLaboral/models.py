@@ -16,3 +16,4 @@ class ContratoLaboralModel(models.Model):
     persona= models.ForeignKey(PersonModel, on_delete=models.CASCADE, blank=True, null=True)
     personaNatural=models.ForeignKey(PersonaNaturalModel,  on_delete=models.CASCADE, blank=True, null=True)
     empresa=models.ForeignKey(EmpresaModel,on_delete=models.CASCADE, blank=True, null=True)
+    is_active= models.BooleanField(default=True)
