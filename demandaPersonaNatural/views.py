@@ -70,36 +70,38 @@ class DemandaPersonaNaturalViews(APIView):
                 }
 
             persona=None
-            ubicacion=None
-            contrato=None
+            municipio=None
             try:
 
                 if request.data['ubicacion_id']!='None':
                     ubicacion = Municipios.objects.get(id_municipio=request.data['ubicacion_id'])
                 if request.data['personaNatural_id']!='None':
-                    personaNatural = PersonaNaturalModel.objects.get(idPersonaNatural=request.data['personaNatural_id'])
+                    personaNatural = PersonaNaturalModel.objects.get(idPersonaNatural =request.data['personaNatural_id'])
                 if request.data['contrato_id']!='None':
                     contrato = ContratoLaboralModel.objects.get(id=request.data['contrato_id'])
+                if request.data['demandante_id']!='None':
+                    demandante = PersonModel.objects.get(id=request.data['demandante_id'])
 
-                DemandaPersonaNaturalModel.objects.create(
+                demandaPersonaNatural_obj=DemandaPersonaNaturalModel.objects.create(
                       superaminimacuantiapersnat = request.data["superaminimacuantiapersnat"],
                                     montototaldemandapersnat = request.data["montototaldemandapersnat"],
                                     respuestafinaldemandaersonan = request.data["respuestafinaldemandaersonan"],
                                     informedesicionfinaldemandapersonan = request.data["informedesicionfinaldemandapersonan"],
-                                     fecharrealradicacionderechopetipersonan = request.data["fecharrealradicacionderechopetipersonan"],
-                                    fechapropuestaradicacionderechopetipersona = request.data["fechapropuestaradicacionderechopetipersona"],
-                                     fecharrealradicaciondemandapersonan = request.data["fecharrealradicaciondemandapersonan"],
-                                     fechapropuestaradicaciondemandapersonan = request.data["fechapropuestaradicaciondemandapersonan"],
-                                    contrato = request.data["contrato_id"],
-                                    personaNatural = request.data["personaNatural_id"],
+                                    fecharrealradicacionderechopetipersonan = request.data["fecharrealradicacionderechopetipersonan"],
+                                    fechademandapersonanatural = request.data["fechaDemandaPersonaNatural"],
+                                    fecharrealradicaciondemandapersonan = request.data["fecharrealradicaciondemandapersonan"],
+                                    fechapropuestaradicaciondemandapersonan = request.data["fechapropuestaradicaciondemandapersonan"],
+                                    contrato = contrato,
+                                    personanatural = personaNatural,
                                     ubicacion = ubicacion,
+                                    demandante=demandante
               )
 
 
                 status=200
                 response['result']=True
                 response['data']={
-                    'id_empresa_obj':empresa_obj.id
+                    'id_demandaPersonaNatural_obj':demandaPersonaNatural_obj.id
                 }
             except Exception as e:
                 response['details']=str(e)
@@ -129,7 +131,7 @@ class DemandaPersonaNaturalViews(APIView):
                 demandaPersonaNatural_obj=DemandaPersonaNaturalModel.objects.update_or_create(id=request.query_params.get('id'),
                                                                             defaults=request.data)
 
-                print(demandaPersonaNatural)
+                print(demandaPersonaNatural_obj)
 
                 status=200
                 response['result']=True
@@ -142,9 +144,6 @@ class DemandaPersonaNaturalViews(APIView):
 
             return Response(response,status=status)
 
-
-
-
         def delete(self,request,format=None,pk=None):
             status=500
 
@@ -156,7 +155,7 @@ class DemandaPersonaNaturalViews(APIView):
 
             try:
                 id=request.query_params.get('id')
-                demandaPersonaNatural_obj=demandaPersonaNaturalModel.objects.filter(id=int(request.query_params.get('id')))
+                demandaPersonaNatural_obj=DemandaPersonaNaturalModel.objects.filter(id=int(request.query_params.get('id')))
 
                 if len(demandaPersonaNatural_obj)==0:
                     response['detail'] ='demandaPersonaNatural no existe en laborapp'

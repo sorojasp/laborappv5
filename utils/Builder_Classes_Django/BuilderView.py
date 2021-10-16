@@ -67,7 +67,7 @@ class {self.appName[0].upper()+self.appName[1:]}Views(APIView):
                     data=find_{self.appName}
                 elif amount =='all':
                     all_{self.appName}={self.appName[0].upper()+self.appName[1:]}Model.objects.all()
-                    data=all_{self.appName}
+                    data=all_empresa
 
                 response['data']=json.loads(serializers.serialize('json', data))
                 response['result']=True
@@ -102,7 +102,7 @@ class {self.appName[0].upper()+self.appName[1:]}Views(APIView):
                 status=200
                 response['result']=True
                 response['data']={self._corchete_abre}
-                    'id_empresa_obj':empresa_obj.id
+                    'id_{self.appName}_obj':{self.appName}_obj.id
                 {self._corchete_cierra}
             except Exception as e:
                 response['details']=str(e)
@@ -132,7 +132,7 @@ class {self.appName[0].upper()+self.appName[1:]}Views(APIView):
                 {self.appName}_obj={self.appName[0].upper()+self.appName[1:]}Model.objects.update_or_create(id=request.query_params.get('id'),
                                                                             defaults=request.data)
 
-                print({self.appName})
+                print({self.appName}_obj)
 
                 status=200
                 response['result']=True
@@ -194,7 +194,7 @@ class {self.appName[0].upper()+self.appName[1:]}Views(APIView):
     def create_object_sentences(self)->str:
 
         native_type_data:list=['int', 'float','str','bool','dict','pk','datetime','email','date','image']
-        first_part_create:str=f'                {self.appName[0].upper()+self.appName[1:]}Model.objects.create('+'\n'
+        first_part_create:str=f'                {self.appName}_obj={self.appName[0].upper()+self.appName[1:]}Model.objects.create('+'\n'
         command:str=''
         data_of_anoter_models:str=''
 
@@ -215,6 +215,6 @@ class {self.appName[0].upper()+self.appName[1:]}Views(APIView):
                 data_of_anoter_models=data_of_anoter_models+conditional+statement
 
 
-                command=f'                      {name_field} = request.data["{name_field}_id"]'+','+'\n'+'              '+command
+                command=f'                      {name_field} = {name_field}'+','+'\n'+'              '+command
 
         return data_of_anoter_models+'\n'+first_part_create + command + ')'
