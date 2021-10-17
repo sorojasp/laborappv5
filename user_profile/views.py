@@ -74,19 +74,6 @@ class UserProfile(APIView):
             }
 
 
-        yagmail.register("recyappbeta1@gmail.com", "#Stiven1911")
-
-        receiver = request.data['email']
-        body = "Hello there from Yagmail"
-        filename = "demanda.pdf"
-
-        yag = yagmail.SMTP("recyappbeta1@gmail.com")
-        yag.send(
-            to=receiver,
-            subject="Yagmail test with attachment",
-            contents=body,
-        )
-
 
         try:
 

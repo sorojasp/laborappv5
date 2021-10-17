@@ -10,7 +10,7 @@ class EnviadorCorreos:
     __senderEmail:str="recyappbeta1@gmail.com"
     __smtp_server:str = "smtp.gmail.com"
     __port:int = 587  # For starttls
-    __password:str = "#Stiven1911"
+    __password:str = "#Stiven19111985"
     __serverObject:smtplib.SMTP=None
     __message:MIMEMultipart=None
 
@@ -74,8 +74,8 @@ class EnviadorCorreos:
 
         # Create the plain-text and HTML version of your message
 
-        
-        
+
+
         html = f"""\
         <html>
          <body>
@@ -92,19 +92,3 @@ class EnviadorCorreos:
         #self.__message.attach(part1)
         self.__message.attach(part2)
         return self.__message.as_string()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
