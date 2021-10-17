@@ -73,6 +73,9 @@ class UserProfile(APIView):
             'detail':None
             }
 
+
+        yagmail.register("recyappbeta1@gmail.com", "#Stiven1911")
+
         receiver = request.data['email']
         body = "Hello there from Yagmail"
         filename = "demanda.pdf"
