@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'persona_natural',
     'empresa',
     'contratoLaboral',
-    'demandaPersonaNatural'
+    'demandaPersonaNatural',
+    'archivoDemanda'
 ]
 MIDDLEWARE = [
 
@@ -130,7 +131,7 @@ WSGI_APPLICATION = 'laborapp.wsgi.application'
 
 DATABASES = {
      'default': {
-        'ENGINE': 'mysql_cymysql',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ingnova1_laborapp',
         'USER': 'ingnova1_stiven',
         'PASSWORD': '#Stiven1911',

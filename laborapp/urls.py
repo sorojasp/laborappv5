@@ -29,6 +29,7 @@ from empresa.views  import EmpresaViews
 
 from contratoLaboral.views import ContratoLaboralView
 from demandaPersonaNatural.views import  DemandaPersonaNaturalViews
+from archivoDemanda.views import ArchivoDemandaView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -42,6 +43,7 @@ urlpatterns = [
     path('persona-natural/',PersonaNatural.as_view()),
     path('empresa/',EmpresaViews.as_view()),
     path('contrato-laboral/', ContratoLaboralView.as_view()),
-    path('demanda-persona-natural/',  DemandaPersonaNaturalViews.as_view())
+    path('demanda-persona-natural/',  DemandaPersonaNaturalViews.as_view()),
+    path('archivo-demanda/', ArchivoDemandaView.as_view())
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # para producción
