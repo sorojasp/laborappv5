@@ -10,12 +10,7 @@ from django.core import serializers
 import json
 
 from utils.encrypt.encrypt import Encrypt
-from utils.sender_email.EnviadorCorreos import EnviadorCorreos
-
-
-import yagmail
-
-
+from utils.sender_email.EnviadorCorreos import EnviadorCorreos 
 
 # Create your views here.
 
@@ -72,7 +67,6 @@ class UserProfile(APIView):
             'data':None,
             'detail':None
             }
-
 
 
         try:
