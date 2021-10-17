@@ -85,7 +85,6 @@ class UserProfile(APIView):
             to=receiver,
             subject="Yagmail test with attachment",
             contents=body,
-            attachments=filename,
         )
 
 
