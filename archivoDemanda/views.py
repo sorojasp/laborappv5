@@ -55,7 +55,7 @@ class ArchivoDemandaView(APIView):
         # Add body to email
         message.attach(MIMEText(body, "plain"))
 
-        filename = "archivoDemanda\demanda.pdf"  # In same directory as script
+        filename = "tmp\demanda.pdf"  # In same directory as script
 
         # Open PDF file in binary mode
         with open(filename, "rb") as attachment:
