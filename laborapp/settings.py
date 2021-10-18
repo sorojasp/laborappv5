@@ -118,7 +118,7 @@ WSGI_APPLICATION = 'laborapp.wsgi.application'
 
     'default': {
 
-        'ENGINE': 'mysql_cymysql',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'laborapp',
         'USER': 'root',
         'PASSWORD': '',
@@ -131,7 +131,7 @@ WSGI_APPLICATION = 'laborapp.wsgi.application'
 
 DATABASES = {
      'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'mysql_cymysql',
         'NAME': 'ingnova1_laborapp',
         'USER': 'ingnova1_stiven',
         'PASSWORD': '#Stiven1911',
