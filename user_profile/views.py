@@ -10,7 +10,7 @@ from django.core import serializers
 import json
 
 from utils.encrypt.encrypt import Encrypt
-from utils.sender_email.EnviadorCorreos import EnviadorCorreos 
+from utils.sender_email.EnviadorCorreos import EnviadorCorreos
 
 # Create your views here.
 
@@ -68,12 +68,17 @@ class UserProfile(APIView):
             'detail':None
             }
 
+        enviador_correos.sendEmail(request.data['email'],"Bienvenido a laborapp","Cordial saludo",
+                                   "Es un gran placer poderlos ayudar en la adversidad, sepán que estamos para servir al pueblo.")
+
 
         try:
 
             password_encrypted:str=encrypt.encrypt_msg(request.data['password'])
             user=models.UserProfile.objects.create(email=request.data['email'],
                                                    password=password_encrypted)
+
+
 
 
             user.save()
@@ -86,8 +91,7 @@ class UserProfile(APIView):
                 'user_email':user.email,
                 'token':str(token)
             }
-            enviador_correos.sendEmail(request.data['email'],"Bienvenido a laborapp","Cordial saludo",
-                                       "Es un gran placer poderlos ayudar en la adversidad, sepán que estamos para servir al pueblo.")
+
 
             status=200
         except IntegrityError:

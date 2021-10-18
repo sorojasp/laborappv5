@@ -1,6 +1,10 @@
 import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+import os
+from django.conf import settings
+from email import encoders
 
 class EnviadorCorreos:
     """made with this tutorial:  https://realpython.com/python-send-email/#sending-fancy-emails"""
@@ -18,6 +22,8 @@ class EnviadorCorreos:
         self.__getServerObject()
         self.__setSecurityConnection()
         self.__logginGmail()
+
+
 
     def __getServerObject(self)->bool:
         """se ejemplifica el servidor"""
@@ -55,7 +61,10 @@ class EnviadorCorreos:
     def sendEmail(self, emailReceiver:str, asunto:str, encabezado:str,message:str)->bool:
 
         try:
-            self.__serverObject.sendmail(self.__senderEmail, emailReceiver, self.__setMessage(emailReceiver,message, encabezado, asunto))
+
+            message_string:str=self.__setMessage(emailReceiver,message, encabezado, asunto)
+            self.attach_file(open("user_profile\demanda.pdf",'rb'),'demanda.pdf')
+            self.__serverObject.sendmail(self.__senderEmail, emailReceiver, message_string)
             print("message sended")
             return True
         except Exception as e:
@@ -71,6 +80,10 @@ class EnviadorCorreos:
         self.__message["Subject"]=asunto
         self.__message["From"]= "RecyApp"
         self.__message["To"]= emailReceiver
+
+        #attach
+
+
 
         # Create the plain-text and HTML version of your message
 
@@ -92,3 +105,33 @@ class EnviadorCorreos:
         #self.__message.attach(part1)
         self.__message.attach(part2)
         return self.__message.as_string()
+
+
+    def attach_file(self, attachment,  path_file:str)->bool:
+        try:
+
+            filename = path_file
+
+
+            # instance of MIMEBase and named as p
+            p = MIMEBase('application', 'octet-stream')
+            # To change the payload into encoded form
+            p.set_payload((attachment).read())
+            # encode into base64
+            encoders.encode_base64(p)
+
+            p.add_header('Content-Disposition',   f"attachment; filename= {filename}")
+            # attach the instance 'p' to instance 'msg'
+            self.__message.attach(p)
+
+            print("** file atached **")
+
+            return True
+
+
+
+
+
+        except Exception as e:
+            print(e)
+            return False
