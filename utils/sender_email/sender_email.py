@@ -42,6 +42,7 @@ class SenderEmail:
 
     def create_mesagge_obj(self)->None:
         """
+        Create a object that is needed to set the message
         """
 
         self.__message=MIMEMultipart()
@@ -50,32 +51,35 @@ class SenderEmail:
                    subject:str,
                    header:str,
                    message:str)->None:
-        """
-        """
-        html = f"""\
-        <html>
-         <body>
-         <p>{header}</p>
-        <p>{message}<p>
-        <p>Visita nuestro sito web: <a href="http://www.ingnovatech.com/recyapp">RecyApp</a> </p>
-        Salvando nuestro mundo...
-        </p>
-        </body>
-        </html>
-        """
-        #part1 = MIMEText(text, "plain")
-        part2 = MIMEText(html, "html")
+                    """
+                    Method to set a subject, header and message of a email
+                    """
+                    html = f"""\
+                    <html>
+                     <body>
+                     <p>{header}</p>
+                    <p>{message}<p>
+                    <p>Visita nuestro sito web: <a href="http://www.ingnovatech.com/recyapp">RecyApp</a> </p>
+                    Salvando nuestro mundo...
+                    </p>
+                    </body>
+                    </html>
+                    """
+                    #part1 = MIMEText(text, "plain")
+                    part2 = MIMEText(html, "html")
 
-
-
-
-        self.__message["From"] = self.__sender_email
-        self.__message["Subject"] = subject
-        self.__message.attach(part2)
-
-
+                    self.__message["From"] = self.__sender_email
+                    self.__message["Subject"] = subject
+                    self.__message.attach(part2)
 
     def attach_file(self, path_file:str):
+
+        """
+
+        method to attach a file to a message; path_file contains the path of
+        the file what to want attach to the email
+
+        """
 
         try:
 

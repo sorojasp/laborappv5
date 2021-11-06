@@ -1,14 +1,29 @@
 
+
+#libraries to generate the pdf
 import time
 from reportlab.lib.enums import TA_JUSTIFY
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
+
+# libraries to store the pdf
+
+import os
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+from django.conf import settings
+
+#another libraries
+
+import random
+
+
 doc = SimpleDocTemplate("form_letter.pdf",pagesize=letter,
                         rightMargin=72,leftMargin=72,
                         topMargin=72,bottomMargin=18)
-import os
+
 
 
 page=[]
@@ -70,3 +85,25 @@ This is a formal letter
 show(text)
 doc.build(page)
 os.system("echo form_letter.pdf")
+
+
+
+def set_name_file(file_name:str)->bool:
+    """Generate a number to add a namefile, if this
+       combination exists, then save the file: but if not exist
+       then generate a number until the file not exists to save it
+     """
+
+    number_file=random.randint(0, 10000)
+
+    print(os.path.exists(f"../../tmp/demanda_{number_file}.pdf"))
+
+
+    while os.path.exists(f"../../tmp/demanda_{number_file}.pdf"):
+        number_file=random.randint(0, 9)
+        print("gg", number_file)
+
+    print("path_file", f"../../tmp/demanda_{number_file}.pdf")
+
+
+set_name_file("")
