@@ -24,6 +24,7 @@ class UserProfile(APIView):
 
             status=200
             amount=str(request.query_params.get('amount'))
+            print("amount: ", amount)
             response={
                 'result':None,
                 'data':None,

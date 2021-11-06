@@ -24,12 +24,13 @@ from email.mime.text import MIMEText
 
 class ArchivoDemandaView(APIView):
 
-    def get(self,  request, *args, **kwargs):
+    def post(self,  request, *args, **kwargs):
 
 
         files = request.FILES.getlist('demanda')
+        print("files: ", files)
         files[0]
-        print(files)
+
 
         path = default_storage.save('tmp/demanda.pdf', ContentFile(files[0].read()))
         tmp_file = os.path.join(settings.MEDIA_ROOT, path)
@@ -55,8 +56,8 @@ class ArchivoDemandaView(APIView):
         # Add body to email
         message.attach(MIMEText(body, "plain"))
 
-        filename = "tmp/demanda
-        .pdf"  # In same directory as script
+
+        filename = "tmp/demanda.pdf"  # In same directory as script
         #in production the path is = "tmp/demanda.pdf"
         # in develop the path is = tmp\demanda.pdf
 
