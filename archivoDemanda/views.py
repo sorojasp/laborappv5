@@ -21,7 +21,7 @@ from utils.pdfGenerator.pdfGenerator import PdfGenerator
 #import sender email
 from utils.sender_email.sender_email import SenderEmail
 
-
+from django.http import FileResponse
 ## libraries to make a pdf
 
 from reportlab.lib.pagesizes import letter
@@ -31,10 +31,12 @@ extension_file:str="pdf"
 
 import random
 import time
+import copy
 class ArchivoDemandaView(APIView):
 
     def post(self,  request, *args, **kwargs):
 
+        file_copy=None
         status=200
         response={
             'result':None,
@@ -71,7 +73,11 @@ class ArchivoDemandaView(APIView):
             if s_email.attach_file(f"./{file_name_full}"):
                 s_email.send_email("stivenorlandorojaspulido@gmail.com")
 
-            os.remove(file_name_full)
+            print("file =( : ", open(f"./{file_name_full}", 'rb'))
+
+            
+
+            #os.remove(file_name_full)
 
             print("** Pdf generate successfully")
             response['result']=True
@@ -79,18 +85,17 @@ class ArchivoDemandaView(APIView):
 
 
 
+
+
         except Exception as err:
-            print("** error to generate and send the pdf:  ",error)
+            print("** error to generate and send the pdf:  ",err)
             response['result']=False
-            response['detail']= str(error)
+            response['detail']= str(err)
             status=500
 
 
-
-
-
-
-        return Response(response, status=status)
+        #return Response(response, status=status)
+        return FileResponse(open(f"./{file_name_full}", 'rb'), content_type='application/pdf')
 
 
 
