@@ -73,15 +73,16 @@ class ArchivoDemandaView(APIView):
             if s_email.attach_file(f"./{file_name_full}"):
                 s_email.send_email("stivenorlandorojaspulido@gmail.com")
 
-            print("file =( : ", open(f"./{file_name_full}", 'rb'))
-
-            
-
-            #os.remove(file_name_full)
 
             print("** Pdf generate successfully")
             response['result']=True
             response['detail']= "** Pdf generated and sended successfully"
+
+            fileResponse=FileResponse(open(f"./{file_name_full}", 'rb'), content_type='application/pdf')
+
+            #os.remove(file_name_full)
+
+            return fileResponse
 
 
 
@@ -92,10 +93,8 @@ class ArchivoDemandaView(APIView):
             response['result']=False
             response['detail']= str(err)
             status=500
+            return Response(response, status=status)
 
-
-        #return Response(response, status=status)
-        return FileResponse(open(f"./{file_name_full}", 'rb'), content_type='application/pdf')
 
 
 
