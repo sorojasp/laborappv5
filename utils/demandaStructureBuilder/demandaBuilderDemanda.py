@@ -1,7 +1,7 @@
 
 
 #import pdf generator
-#from pdfGenerator import PdfGenerator
+from pdfGenerator import PdfGenerator
 
 
 ## libraries to make a pdf
@@ -75,21 +75,17 @@ class DemanadaBuilderDemanda:
 
 
     def build_summary(self)->str:
-            self.summary = f"""\
-        Yo {self.nombre_demandante} mayor de edad y domiciliado en Bogotá con {self.tipo_documento_demandante} número {self.documento_demandante} expedia en {self.lugar_expedicion_documento_demandante}, obrando en mi nombre. Presento ante su honorable despacho
-        demanda contra {self.nombre_empresa} identifcada con {self.tipo_documento_empresa} {self.documento_empresa}, representada
-        legalmente por SOLICITAR REPRESENTANTE LEGAL o quien haga sus veces, entidad con domicilio
-        en {self.lugar_resisdencia_demandante}, para que mediante el trámite propio del proceso ordinario laboral de mínima
-        cuantía y mediante sentencia se proferan las respectivas condenas que más adelante entraré
-        a solicitar, para lo cual me fundamento en los hechos y normas que a continuación relaciono.
+        self.summary =f'Yo {self.nombre_demandante} mayor de edad y domiciliado en Bogotá con {self.tipo_documento_demandante} número {self.documento_demandante} expedia en {self.lugar_expedicion_documento_demandante}, obrando en mi nombre. Presento ante su honorable despacho\
+        demanda contra {self.nombre_empresa} identifcada con {self.tipo_documento_empresa} {self.documento_empresa}, representada\
+        legalmente por SOLICITAR REPRESENTANTE LEGAL o quien haga sus veces, entidad con domicilio\
+        en {self.lugar_resisdencia_demandante}, para que mediante el trámite propio del proceso ordinario laboral de mínima\
+        cuantía y mediante sentencia se proferan las respectivas condenas que más adelante entraré\
+        a solicitar, para lo cual me fundamento en los hechos y normas que a continuación relaciono.'
 
-""".replace("\n", "")
 
     def setAllDocument(self)->str:
         self.allText=self.header+self.summary
         return self.allText
-
-
 
 
 
@@ -110,7 +106,7 @@ while os.path.exists(f"./{file_name}_{number_file}.{extension_file}"):
     number_file=random.randint(0, 10000)
 
 file_name_full:str=f"{file_name}_{number_file}.{extension_file}"
-"""
+
 pdf_generator=PdfGenerator()
 pdf_generator.set_features(
                  file_name_full,
@@ -121,4 +117,73 @@ pdf_generator.set_features(
                  18)
 pdf_generator.set_styles()
 pdf_generator.generate_pdf(demandaBuilder.setAllDocument())
+
+
+
+import time
+from reportlab.lib.enums import TA_JUSTIFY
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.units import inch
+doc = SimpleDocTemplate("form_letter.pdf",pagesize=letter,
+                        rightMargin=72,leftMargin=72,
+                        topMargin=72,bottomMargin=18)
+Story=[]
+logo = "python_logo.png"
+magName = "Pythonista"
+issueNum = 12
+subPrice = "99.00"
+limitedDate = "03/05/2010"
+freeGift = "tin foil hat"
+formatted_time = time.ctime()
+full_name = "Mike Driscoll"
+address_parts = ["411 State St.", "Marshalltown, IA 50158"]
+im = Image(logo, 2*inch, 2*inch)
+Story.append(im)
+styles=getSampleStyleSheet()
+styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
+ptext = '%s' % formatted_time
+Story.append(Paragraph(ptext, styles["Normal"]))
+Story.append(Spacer(1, 12))
+# Create return address
+ptext = '%s' % full_name
+Story.append(Paragraph(ptext, styles["Normal"]))
+for part in address_parts:
+    ptext = '%s' % part.strip()
+    Story.append(Paragraph(ptext, styles["Normal"]))
+Story.append(Spacer(1, 12))
+ptext = 'Dear %s:' % full_name.split()[0].strip()
+Story.append(Paragraph(ptext, styles["Normal"]))
+Story.append(Spacer(1, 12))
 """
+ptext = 'We would like to welcome you to our subscriber base for %s Magazine! \
+        You will receive %s issues at the excellent introductory price of $%s. Please respond by\
+        %s to start receiving your subscription and get the following free gift: %s.' % (magName,
+                                                                                                issueNum,
+                                                                                                subPrice,
+                                                                                                limitedDate,
+                                                                                                freeGift)
+"""
+
+ptext = 'Yo Stiven Orlando mayor de edad y domiciliado en Bogotá con CC número\
+80.865.137 expedia en Bogotá D.C, obrando en mi nombre. Presento ante su\
+representada legalmente por SOLICITAR REPRESENTANTE LEGAL o quien haga\
+honorable despacho demanda contra Uniempresarial identifcada con NIT 897897,\
+sus veces, entidad con domicilio en Bogotá D.C, para que mediante el trámite propio\
+del proceso ordinario laboral de mínima cuantía y mediante sentencia se proferan las\
+respectivas condenas que más adelante entraré a solicitar, para lo cual me\
+fundamento en los hechos y normas que a continuación relaciono.'
+
+Story.append(Paragraph(ptext, styles["Justify"]))
+Story.append(Spacer(1, 12))
+ptext = 'Thank you very much and we look forward to serving you.'
+Story.append(Paragraph(ptext, styles["Justify"]))
+Story.append(Spacer(1, 12))
+ptext = 'Sincerely,'
+Story.append(Paragraph(ptext, styles["Normal"]))
+Story.append(Spacer(1, 48))
+ptext = 'Ima Sucker'
+Story.append(Paragraph(ptext, styles["Normal"]))
+Story.append(Spacer(1, 12))
+doc.build(Story)

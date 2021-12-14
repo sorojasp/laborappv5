@@ -54,7 +54,8 @@ class PdfGenerator:
                 self.add_text(f)
         else:
             ptext = f'<font size="12">{text}</font>'
-            self.__page.append(Paragraph(ptext, self.__styles["Normal"]))
+            self.__page.append(Paragraph(ptext, styles["Justify"]))
+            Story.__page.append(Spacer(1, 12))
             if space==1:
                 self.add_space()
             self.add_space()
@@ -89,17 +90,6 @@ class PdfGenerator:
                 self.add_text(line)
 
 
-
-    def show(self, text):
-        "Prints all the lines in the text multiline string"
-        text = text.splitlines()
-        for line in text:
-            if ".png" in line:
-                self.add_image(line)
-            elif "ctime()" in line:
-                self.add_text(time.ctime())
-            else:
-                self.add_text(line)
 
     def generate_pdf(self, content:str):
         self.show(content)
