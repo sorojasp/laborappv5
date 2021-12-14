@@ -32,10 +32,22 @@ extension_file:str="pdf"
 import random
 import time
 import copy
+
+# libraries to handle of files
+import sys
+import io
+import psutil
+import base64
+
+# import class that set law file
+from utils.demandaStructureBuilder.demandaBuilderDemanda import DemanadaBuilderDemanda
+
+
 class ArchivoDemandaView(APIView):
 
     def post(self,  request, *args, **kwargs):
 
+        email=None
         file_copy=None
         status=200
         response={
@@ -43,8 +55,24 @@ class ArchivoDemandaView(APIView):
             'data':None,
             'detail':None
             }
-
         try:
+            email=request.query_params.get("email")
+            print("email: ",email)
+
+            demandaBuilder=DemanadaBuilderDemanda(
+                                                  request.data['summaryDemanda']["nombreDemandante"],
+                                                  request.data['summaryDemanda']["apellidoDemandante"],
+                                                  request.data['summaryDemanda']["tipoDocumentoDemandante"],
+                                                  request.data['summaryDemanda']["lugarExpedicionDocumentoDemandante"],
+                                                  request.data['summaryDemanda']["documentoDemandante"],
+                                                  request.data['summaryDemanda']["nombreEmpresa"],
+                                                  request.data['summaryDemanda']["tipoDocumentoEmpresa"],
+                                                  request.data['summaryDemanda']["documentoEmpresa"],
+                                                  request.data['summaryDemanda']["ciudadEmpresa"],
+                                                  request.data['summaryDemanda']["lugarResisdenciaDemandante"],
+                                                  )
+
+
 
             number_file=random.randint(0, 10000)
 
@@ -63,37 +91,36 @@ class ArchivoDemandaView(APIView):
                              72,
                              18)
             pdf_generator.set_styles()
-            pdf_generator.generate_pdf()
-
-
+            pdf_generator.generate_pdf(demandaBuilder.setAllDocument())
 
             s_email=SenderEmail()
             s_email.set_email("Helloooooo =)", "Hi", "I hope all is well")
 
             if s_email.attach_file(f"./{file_name_full}"):
-                s_email.send_email("stivenorlandorojaspulido@gmail.com")
+                s_email.send_email(email)
 
+            print("file =( : ", open(f"./{file_name_full}", 'rb'))
 
             print("** Pdf generate successfully")
             response['result']=True
             response['detail']= "** Pdf generated and sended successfully"
 
-            fileResponse=FileResponse(open(f"./{file_name_full}", 'rb'), content_type='application/pdf')
 
-            #os.remove(file_name_full)
-
-            return fileResponse
-
-
-
-
+            with open(f"./{file_name_full}", "rb") as f:
+                encodedZip = base64.b64encode(f.read())
+                f.close()
+                response['file_base64']=encodedZip.decode()
+                #fileResponse=FileResponse(encodedZip.decode(), content_type='application/pdf')
+                os.remove(f"./{file_name_full}")
+                return Response(response, status=status)
 
         except Exception as err:
             print("** error to generate and send the pdf:  ",err)
             response['result']=False
             response['detail']= str(err)
             status=500
-            return Response(response, status=status)
+
+        return Response(response, status=status)
 
 
 

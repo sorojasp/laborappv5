@@ -7,8 +7,9 @@ from BuilderView import BuilderView
 from BuilderModels import BuilderModels
 import os
 
-appName: str = "demandaPersonaNatural"#Nombre de la app
+appName: str = "user_profile"#Nombre de la app
 nameFile_baseClass = f'{appName.capitalize()}.py'#Nombre de la clase base
+"""
 attributes = ['ubicacion:Municipios',
               'personaNatural:PersonaNatural',
               'contrato:ContratoLaboral',
@@ -21,6 +22,8 @@ attributes = ['ubicacion:Municipios',
               'montototaldemandapersnat:float',
               'superaminimacuantiapersna:str',
               ]#atributos de la app
+"""
+attributes = ['email:email','password:str']
 
 # Creación del directorio en donde se guardarán los resultados
 

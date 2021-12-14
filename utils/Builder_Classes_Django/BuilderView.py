@@ -67,7 +67,7 @@ class {self.appName[0].upper()+self.appName[1:]}Views(APIView):
                     data=find_{self.appName}
                 elif amount =='all':
                     all_{self.appName}={self.appName[0].upper()+self.appName[1:]}Model.objects.all()
-                    data=all_empresa
+                    data=all_{self.appName}
 
                 response['data']=json.loads(serializers.serialize('json', data))
                 response['result']=True

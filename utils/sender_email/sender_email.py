@@ -71,6 +71,7 @@ class SenderEmail:
                     self.__message["From"] = self.__sender_email
                     self.__message["Subject"] = subject
                     self.__message.attach(part2)
+                    #print(self.__message)
 
     def attach_file(self, path_file:str):
 
@@ -113,8 +114,9 @@ class SenderEmail:
     def send_email(self,  receiver_email:str)->bool:
 
         try:
+            self.__text_obj = self.__message.as_string()
 
-            print(self.__smtp_server, self.__port, self.__sender_email, self.__password_email, )
+            #print(self.__smtp_server, self.__port, self.__sender_email, self.__password_email, )
 
             self.__message["To"] = receiver_email
             context = ssl.create_default_context()

@@ -10,7 +10,7 @@ from django.core import serializers
 import json
 
 from utils.encrypt.encrypt import Encrypt
-from utils.sender_email.EnviadorCorreos import EnviadorCorreos
+#from utils.sender_email.EnviadorCorreos import EnviadorCorreos
 
 # Create your views here.
 
@@ -59,7 +59,7 @@ class UserProfile(APIView):
 
     def post(self,request,format=None,pk=None):
         encrypt=Encrypt()
-        enviador_correos:EnviadorCorreos=EnviadorCorreos()
+        #enviador_correos:EnviadorCorreos=EnviadorCorreos()
 
         status=500
 
