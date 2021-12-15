@@ -1,8 +1,6 @@
-
-
 #libraries to generate the pdf
 import time
-from reportlab.lib.enums import TA_JUSTIFY
+from reportlab.lib.enums import TA_JUSTIFY, TA_CENTER
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -42,7 +40,17 @@ class PdfGenerator:
 
     def set_styles(self, style_text='Justify'):
         self.__styles=getSampleStyleSheet()
-        self.__styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
+        self.__styles.add(ParagraphStyle(name='centered', alignment=TA_CENTER))
+
+        self.__styles.add(ParagraphStyle(name='centered_wide', alignment=TA_CENTER,
+                                      leading=18))
+        self.__styles.add(ParagraphStyle(name='section_body',
+                                      parent=self.__styles['Normal'],
+                                      spaceAfter=inch * .05,
+                                      fontSize=11))
+        self.__styles.add(ParagraphStyle(name='bullet_list',
+                                      parent=self.__styles['Normal'],
+                                      fontSize=11))
 
     def add_text(self, text:str, space=0):
         """
@@ -54,8 +62,7 @@ class PdfGenerator:
                 self.add_text(f)
         else:
             ptext = f'<font size="12">{text}</font>'
-            self.__page.append(Paragraph(ptext, styles["Justify"]))
-            Story.__page.append(Spacer(1, 12))
+            self.__page.append(Paragraph(ptext, self.__styles["Normal"]))
             if space==1:
                 self.add_space()
             self.add_space()
@@ -89,10 +96,9 @@ class PdfGenerator:
             else:
                 self.add_text(line)
 
-
-
-    def generate_pdf(self, content:str):
+    def generate_pdf(self,  content:str):
         self.show(content)
+        #self.show(put_info())
         self.__doc.build(self.__page)
 
 

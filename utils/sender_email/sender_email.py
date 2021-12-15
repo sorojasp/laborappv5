@@ -126,7 +126,7 @@ class SenderEmail:
                 server.sendmail(self.__sender_email, receiver_email, self.__text_obj)
                 return True
         except Exception as error :
-            print("Error meanwhile send the email")
+            print("Error meanwhile send the email: "+error)
             return False
 
 

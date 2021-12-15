@@ -83,6 +83,7 @@ class ArchivoDemandaView(APIView):
 
 
             pdf_generator=PdfGenerator()
+
             pdf_generator.set_features(
                              file_name_full,
                              letter,
@@ -90,8 +91,11 @@ class ArchivoDemandaView(APIView):
                              72,
                              72,
                              18)
+
             pdf_generator.set_styles()
+
             pdf_generator.generate_pdf(demandaBuilder.setAllDocument())
+
 
             s_email=SenderEmail()
             s_email.set_email("Helloooooo =)", "Hi", "I hope all is well")
@@ -113,6 +117,7 @@ class ArchivoDemandaView(APIView):
                 #fileResponse=FileResponse(encodedZip.decode(), content_type='application/pdf')
                 os.remove(f"./{file_name_full}")
                 return Response(response, status=status)
+           
 
         except Exception as err:
             print("** error to generate and send the pdf:  ",err)
