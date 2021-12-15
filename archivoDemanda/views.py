@@ -100,7 +100,7 @@ class ArchivoDemandaView(APIView):
             s_email=SenderEmail()
             s_email.set_email("Helloooooo =)", "Hi", "I hope all is well")
 
-            if s_email.attach_file(f"/{file_name_full}"):
+            if s_email.attach_file(f"{file_name_full}"):
                 s_email.send_email(email)
 
             print("file =( : ", open(f"./{file_name_full}", 'rb'))
