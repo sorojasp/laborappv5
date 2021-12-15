@@ -106,7 +106,7 @@ class SenderEmail:
             self.__text_obj = self.__message.as_string()
             return True
         except FileNotFoundError:
-            print("Wrong file or file path")
+            print("Wrong file or file path: ")
             return False
 
 
