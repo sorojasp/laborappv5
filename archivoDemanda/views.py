@@ -141,6 +141,10 @@ class ArchivoDemandaView(APIView):
                     pdf_generator.add_paragraph(ptext=f"{index}"+". "+prueba_testimonial)
                     index+=1
 
+            #Competencia
+            pdf_generator.add_text("<b>Competencia: </b>")
+            pdf_generator.add_paragraph(ptext="Es usted competente ya que yo legitimado por activa preste mis servicios en esta ciudad en la cual está domiciliado al igual que la legitimada por pasiva, además, lo es por la naturaleza del negocio y la razón de la cuantía.")
+
             #cuantia
             pdf_generator.add_text("<b>Cuantia: </b>")
             pdf_generator.add_paragraph(ptext=request.data['cuantia'])
