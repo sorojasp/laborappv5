@@ -54,11 +54,11 @@ class DemanadaBuilderDemanda:
         self.ciudad_empresa= ciudad_empresa
         self.lugar_resisdencia_demandante=lugar_resisdencia_demandante
 
-        self.build_header()
-        self.build_summary()
+        #self.build_header()
+        #self.build_summary()
 
 
-    def build_header(self):
+    def build_header(self)->str:
         self.header = f"""\
 
 
@@ -72,6 +72,7 @@ class DemanadaBuilderDemanda:
         Demandado : {self.nombre_empresa}
 
 """
+        return self.header
 
 
     def build_summary(self)->str:
@@ -81,105 +82,8 @@ class DemanadaBuilderDemanda:
         en {self.lugar_resisdencia_demandante}, para que mediante el trámite propio del proceso ordinario laboral de mínima\
         cuantía y mediante sentencia se proferan las respectivas condenas que más adelante entraré\
         a solicitar, para lo cual me fundamento en los hechos y normas que a continuación relaciono.'
+        return self.summary
 
     def setAllDocument(self)->str:
         self.allText=self.header+self.summary
         return self.allText
-
-demandaBuilder=DemanadaBuilderDemanda("Stiven Orlando",
-             "Rojas Pulido",
-             "CC",
-             "Bogotá D.C",
-             "80.865.137",
-             "Uniempresarial",
-             "NIT",
-             "897897",
-             "Bogotá D.C",
-             "Bogotá D.C")
-
-number_file=random.randint(0, 10000)
-
-while os.path.exists(f"./{file_name}_{number_file}.{extension_file}"):
-    number_file=random.randint(0, 10000)
-
-file_name_full:str=f"{file_name}_{number_file}.{extension_file}"
-
-"""
-pdf_generator=PdfGenerator()
-pdf_generator.set_features(
-                 file_name_full,
-                 letter,
-                 72,
-                 72,
-                 72,
-                 18)
-pdf_generator.set_styles()
-pdf_generator.generate_pdf(demandaBuilder.setAllDocument())
-
-import time
-from reportlab.lib.enums import TA_JUSTIFY
-from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.units import inch
-doc = SimpleDocTemplate("form_letter.pdf",pagesize=letter,
-                        rightMargin=72,leftMargin=72,
-                        topMargin=72,bottomMargin=18)
-Story=[]
-logo = "python_logo.png"
-magName = "Pythonista"
-issueNum = 12
-subPrice = "99.00"
-limitedDate = "03/05/2010"
-freeGift = "tin foil hat"
-formatted_time = time.ctime()
-full_name = "Mike Driscoll"
-address_parts = ["411 State St.", "Marshalltown, IA 50158"]
-im = Image(logo, 2*inch, 2*inch)
-
-Story.append(im)
-styles=getSampleStyleSheet()
-styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
-
-ptext = '%s' % formatted_time
-Story.append(Paragraph(ptext, styles["Normal"]))
-Story.append(Spacer(1, 12))
-# Create return address
-
-ptext = '%s' % full_name
-Story.append(Paragraph(ptext, styles["Normal"]))
-for part in address_parts:
-    ptext = '%s' % part.strip()
-    Story.append(Paragraph(ptext, styles["Normal"]))
-Story.append(Spacer(1, 12))
-
-ptext = 'Dear %s:' % full_name.split()[0].strip()
-Story.append(Paragraph(ptext, styles["Normal"]))
-Story.append(Spacer(1, 12))
-
-ptext = 'Yo Stiven Orlando mayor de edad y domiciliado en Bogotá con CC número\
-80.865.137 expedia en Bogotá D.C, obrando en mi nombre. Presento ante su\
-representada legalmente por SOLICITAR REPRESENTANTE LEGAL o quien haga\
-honorable despacho demanda contra Uniempresarial identifcada con NIT 897897,\
-sus veces, entidad con domicilio en Bogotá D.C, para que mediante el trámite propio\
-del proceso ordinario laboral de mínima cuantía y mediante sentencia se proferan las\
-respectivas condenas que más adelante entraré a solicitar, para lo cual me\
-fundamento en los hechos y normas que a continuación relaciono.'
-
-Story.append(Paragraph(ptext, styles["Justify"]))
-Story.append(Spacer(1, 12))
-
-ptext = 'Thank you very much and we look forward to serving you.'
-Story.append(Paragraph(ptext, styles["Justify"]))
-Story.append(Spacer(1, 12))
-
-ptext = 'Sincerely,'
-Story.append(Paragraph(ptext, styles["Normal"]))
-Story.append(Spacer(1, 48))
-
-ptext = 'Ima Sucker'
-Story.append(Paragraph(ptext, styles["Normal"]))
-Story.append(Spacer(1, 12))
-
-doc.build(Story)
-"""

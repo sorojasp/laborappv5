@@ -19,10 +19,10 @@ import random
 
 
 class PdfGenerator:
-
-    __doc:None
+    __doc=None
     __page:list=[]
-    __styles:None
+    __styles=None
+
 
     def __init__(self):
         pass
@@ -37,85 +37,44 @@ class PdfGenerator:
         self.__doc = SimpleDocTemplate(name_pdf_file,pagesize=pagesize,
                                 rightMargin=rightMargin,leftMargin=leftMargin,
                                 topMargin=topMargin,bottomMargin=bottomMargin)
-
-    def set_styles(self, style_text='Justify'):
         self.__styles=getSampleStyleSheet()
-        self.__styles.add(ParagraphStyle(name='centered', alignment=TA_CENTER))
 
-        self.__styles.add(ParagraphStyle(name='centered_wide', alignment=TA_CENTER,
-                                      leading=18))
-        self.__styles.add(ParagraphStyle(name='section_body',
-                                      parent=self.__styles['Normal'],
-                                      spaceAfter=inch * .05,
-                                      fontSize=11))
-        self.__styles.add(ParagraphStyle(name='bullet_list',
-                                      parent=self.__styles['Normal'],
-                                      fontSize=11))
+        self.__styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
 
-    def add_text(self, text:str, space=0):
-        """
-        Add text to the pdf line by line
-        """
+    def add_paragraph(self, ptext:str, style='Justify'):
 
-        if type(text)==list:
-            for f in text:
-                self.add_text(f)
+        if style=='Justify':
+            self.__page.append(Paragraph(ptext, self.__styles["Justify"]))
         else:
-            ptext = f'<font size="12">{text}</font>'
             self.__page.append(Paragraph(ptext, self.__styles["Normal"]))
-            if space==1:
-                self.add_space()
-            self.add_space()
-
-    def add_space(self, ):
         self.__page.append(Spacer(1, 12))
 
-    def show(self, text:str):
-        "Prints all the lines in the text multiline string"
-        text = text.splitlines()
-        for line in text:
-            if ".png" in line:
-                self.add_image(line)
-            elif "ctime()" in line:
-                self.add_text(time.ctime())
-            else:
-                self.add_text(line)
+    def add_text(self, text:str, space=0):
+        for line in text.splitlines():
+            self.__page.append(Paragraph(line, self.__styles["Normal"]))
+        self.__page.append(Spacer(1, 12))
 
-    def add_image(self, img):
-        im = Image(img, 2*inch, 2*inch)
-        self.__page.append(im)
 
-    def show(self, text:str):
-        "Prints all the lines in the text multiline string"
-        text = text.splitlines()
-        for line in text:
-            if ".png" in line:
-                self.add_image(line)
-            elif "ctime()" in line:
-                self.add_text(time.ctime())
-            else:
-                self.add_text(line)
 
-    def generate_pdf(self,  content:str):
-        self.show(content)
-        #self.show(put_info())
+
+
+
+    def generate_pdf(self):
         self.__doc.build(self.__page)
 
-
-"""
-# to make a test
 pdf_generator=PdfGenerator()
 pdf_generator.set_features(
-                 "demanda_48",
+                 "demanda_51.pdf",
                  letter,
                  72,
                  72,
                  72,
                  18)
-pdf_generator.set_styles()
-pdf_generator.generate_pdf()
-"""
+text=f"""\
+The third little pig worked hard all day and built his house with bricks. It was a sturdy house complete with a fine fireplace and chimney. It looked like it could withstand the strongest winds.
+The next day, a wolf happened to pass by the lane where the three little pigs lived; and he saw the straw house, and he smelled the pig inside. He thought the pig would make a mighty fine meal and his mouth began to water.
+So he knocked on the door and said:
 
-# start to save the file
-#path = default_storage.save('tmp/demanda.pdf', ContentFile(files[0].read()))
-#tmp_file = os.path.join(settings.MEDIA_ROOT, path)
+"""
+pdf_generator.add_paragraph(ptext=text)
+pdf_generator.generate_pdf()

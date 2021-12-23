@@ -82,7 +82,9 @@ class ArchivoDemandaView(APIView):
             file_name_full:str=f"{file_name}_{number_file}.{extension_file}"
 
 
+
             pdf_generator=PdfGenerator()
+
 
             pdf_generator.set_features(
                              file_name_full,
@@ -90,11 +92,115 @@ class ArchivoDemandaView(APIView):
                              72,
                              72,
                              72,
-                             18)
+                             30)
 
-            pdf_generator.set_styles()
 
-            pdf_generator.generate_pdf(demandaBuilder.setAllDocument())
+
+            pdf_generator.add_text(f'{time.ctime()}')
+            pdf_generator.add_text(demandaBuilder.build_header())
+            pdf_generator.add_paragraph(ptext=demandaBuilder.build_summary())
+
+            pdf_generator.add_text("<b>Tipo de proceso: </b>")
+            pdf_generator.add_paragraph(ptext=request.data['tipoProceso'])
+
+            #Hechos
+
+            pdf_generator.add_text("<b>Hechos: </b>")
+
+            index:int=1
+            for hecho in request.data['hechos']:
+                pdf_generator.add_paragraph(ptext=f"{index}"+". "+hecho)
+                index+=1
+
+            #Peticiones
+            pdf_generator.add_text(f'<b>Peticiones: </b>')
+            pdf_generator.add_paragraph(ptext="Solicito al señor juez, que una vez probados los hechos arriba enunciados se declare:")
+
+            index=1
+            for peticion in request.data['peticiones']:
+                pdf_generator.add_paragraph(ptext=f"  {index}"+". "+peticion)
+                index+=1
+
+            #Pruebas
+            pdf_generator.add_text("<b>Pruebas: </b>")
+            pdf_generator.add_paragraph(ptext="Solicito señor Juez, que se sirva decretar y practicar las siguientes pruebas para que sean tenidas en cuenta al elaborarse el fallo respectivo: ")
+
+            #Pruebas documentales
+            index=1
+            if len(request.data['pruebas']['documentales'])!=0:
+                pdf_generator.add_text("<b>Documentales: </b>")
+                for prueba_documental in request.data['pruebas']['documentales']:
+                    pdf_generator.add_paragraph(ptext=f"{index}"+". "+prueba_documental)
+                    index+=1
+
+            #Pruebas testimoniales
+            index=1
+            if len(request.data['pruebas']['testimoniales'])!=0:
+                pdf_generator.add_text("<b>Testimoniales: </b>")
+                for prueba_testimonial in request.data['pruebas']['testimoniales']:
+                    pdf_generator.add_paragraph(ptext=f"{index}"+". "+prueba_testimonial)
+                    index+=1
+
+            #cuantia
+            pdf_generator.add_text("<b>Cuantia: </b>")
+            pdf_generator.add_paragraph(ptext=request.data['cuantia'])
+
+            #notificaciones
+            pdf_generator.add_text("<b>Notificaciones: </b>")
+            pdf_generator.add_paragraph(ptext="Para que se efecúen debidamente facilito las siguientes direcciones.")
+
+            #notificaciones demandado
+            if len(request.data['notificaciones']['demandado'])!=0:
+                pdf_generator.add_text("<b>Demandado: </b>")
+                for notficacion_demandado in request.data['notificaciones']['demandado']:
+                    pdf_generator.add_paragraph(ptext=notficacion_demandado)
+
+            #notificaciones demandante
+            if len(request.data['notificaciones']['demandante'])!=0:
+                pdf_generator.add_text("<b>Demandante: </b>")
+                for notficacion_demandado in request.data['notificaciones']['demandante']:
+                    pdf_generator.add_paragraph(ptext=notficacion_demandado)
+
+            #anexos
+            pdf_generator.add_text("Anexos de la demanda: ")
+            pdf_generator.add_paragraph(ptext="Los documentos aducidos como pruebas que se encontraban en mi poder.")
+
+            #
+            pdf_generator.add_text("Del señor Juez")
+
+            #signature
+            signature=""
+
+            for item in request.data['signature']:
+                signature=signature+item+'\n'
+            pdf_generator.add_text(signature)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            pdf_generator.generate_pdf()
+
+            del pdf_generator
+
+
+
 
 
             s_email=SenderEmail()

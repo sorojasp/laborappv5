@@ -69,8 +69,10 @@ class UserProfile(APIView):
             'detail':None
             }
 
+        """
         enviador_correos.sendEmail(request.data['email'],"Bienvenido a laborapp","Cordial saludo",
                                    "Es un gran placer poderlos ayudar en la adversidad, sepán que estamos para servir al pueblo.")
+        """
 
 
         try:
