@@ -203,6 +203,8 @@ class ArchivoDemandaView(APIView):
 
             del pdf_generator_derechoP
 
+            print("** Genera la demanda =) ***")
+
             #*********************** Derecho de petición file******************************************#
 
 
