@@ -29,6 +29,9 @@ from reportlab.lib.pagesizes import letter
 file_name:str="demanda"
 extension_file:str="pdf"
 
+derecho_peticion_name="derechoPeticion"
+derecho_peticion_extension="pdf"
+
 import random
 import time
 import copy
@@ -72,20 +75,21 @@ class ArchivoDemandaView(APIView):
                                                   request.data['summaryDemanda']["lugarResisdenciaDemandante"],
                                                   )
 
-
-
+            #Set name of demanda file
             number_file=random.randint(0, 10000)
-
             while os.path.exists(f"./{file_name}_{number_file}.{extension_file}"):
                 number_file=random.randint(0, 10000)
-
             file_name_full:str=f"{file_name}_{number_file}.{extension_file}"
 
+            #Set name of derecho peticion
+            number_file_derechoP=random.randint(0, 10000)
+            while os.path.exists(f"./{derecho_peticion_name}_{number_file_derechoP}.{derecho_peticion_extension}"):
+                number_file_derechoP=random.randint(0, 10000)
+            derecho_name_full:str=f"{derecho_peticion_name}_{number_file_derechoP}.{derecho_peticion_extension}"
 
 
+            #Generate pdf of "demanda" file
             pdf_generator=PdfGenerator()
-
-
             pdf_generator.set_features(
                              file_name_full,
                              letter,
@@ -93,8 +97,6 @@ class ArchivoDemandaView(APIView):
                              72,
                              72,
                              30)
-
-
 
             pdf_generator.add_text(f'{time.ctime()}')
             pdf_generator.add_text(demandaBuilder.build_header())
@@ -180,29 +182,28 @@ class ArchivoDemandaView(APIView):
             pdf_generator.add_text(signature)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             pdf_generator.generate_pdf()
 
             del pdf_generator
 
+
+            #*********************** Derecho de petición file******************************************#
+            pdf_generator_derechoP=PdfGenerator()
+            pdf_generator_derechoP.set_features(
+                             derecho_name_full,
+                             letter,
+                             72,
+                             72,
+                             72,
+                             30)
+            pdf_generator_derechoP.add_text("Anexos de la demanda: ")
+            pdf_generator_derechoP.add_paragraph(ptext="Los documentos aducidos como pruebas que se encontraban en mi poder.")
+
+            pdf_generator_derechoP.generate_pdf()
+
+            del pdf_generator_derechoP
+
+            #*********************** Derecho de petición file******************************************#
 
 
 
@@ -210,8 +211,12 @@ class ArchivoDemandaView(APIView):
             s_email=SenderEmail()
             s_email.set_email("Helloooooo =)", "Hi", "I hope all is well")
 
+
+
             if s_email.attach_file(f"./{file_name_full}"):
-                s_email.send_email(email)
+                if s_email.attach_file(f"./{derecho_name_full}"):
+                    if s_email.attach_file("./instructivo.pdf"):
+                        s_email.send_email(email)
 
             print("file =( : ", open(f"./{file_name_full}", 'rb'))
 
@@ -226,6 +231,15 @@ class ArchivoDemandaView(APIView):
                 response['file_base64']=encodedZip.decode()
                 #fileResponse=FileResponse(encodedZip.decode(), content_type='application/pdf')
                 os.remove(f"./{file_name_full}")
+                #return Response(response, status=status)
+
+            # delete file of derecho
+            with open(f"./{derecho_name_full}", "rb") as fl:
+                encodedZipl = base64.b64encode(fl.read())
+                fl.close()
+                response['file_base64_derecho']=encodedZipl.decode()
+                #fileResponse=FileResponse(encodedZip.decode(), content_type='application/pdf')
+                os.remove(f"./{derecho_name_full}")
                 return Response(response, status=status)
 
 
