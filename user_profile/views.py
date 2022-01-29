@@ -176,7 +176,7 @@ class UserProfile(APIView):
 
 class UserLogin(APIView):
 
-    def get(self,request,format=None,pk=None):
+    def post(self,request,format=None,pk=None):
 
         status=500
 
