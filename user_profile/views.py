@@ -201,6 +201,7 @@ class UserLogin(APIView):
                 response['result'] = True
                 response['detail']='Usuario logeado con éxito'
                 response['data'] = json.loads(serializers.serialize('json', user_obj))
+                status=200
 
 
         except Exception as error:
