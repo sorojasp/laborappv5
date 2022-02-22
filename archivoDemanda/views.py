@@ -44,7 +44,7 @@ import base64
 
 # import class that set law file
 from utils.demandaStructureBuilder.demandaBuilderDemanda import DemanadaBuilderDemanda
-
+from utils.demandaStructureBuilder.derechoPeticionBuilder import DerechoPeticionBuilder
 
 class ArchivoDemandaView(APIView):
 
@@ -196,8 +196,54 @@ class ArchivoDemandaView(APIView):
                              72,
                              72,
                              30)
-            pdf_generator_derechoP.add_text("Anexos de la demanda: ")
-            pdf_generator_derechoP.add_paragraph(ptext="Los documentos aducidos como pruebas que se encontraban en mi poder.")
+
+            derechoBuilder=DerechoPeticionBuilder( request.data['summaryDemanda']["nombreDemandante"],
+             request.data['summaryDemanda']["apellidoDemandante"],
+             request.data['summaryDemanda']["tipoDocumentoDemandante"],
+             request.data['summaryDemanda']["lugarExpedicionDocumentoDemandante"],
+             request.data['summaryDemanda']["documentoDemandante"],
+             request.data['summaryDemanda']["nombreEmpresa"],
+             request.data['summaryDemanda']["tipoDocumentoEmpresa"],
+             request.data['summaryDemanda']["documentoEmpresa"],
+             request.data['summaryDemanda']["ciudadEmpresa"],
+             request.data['summaryDemanda']["lugarResisdenciaDemandante"],)
+
+            pdf_generator_derechoP.add_text(derechoBuilder.build_header())
+
+            pdf_generator_derechoP.add_paragraph(ptext="Asunto: Derecho de Petición. Artículo 23 de la Constitución Política y Ley 1755 de 2015 (Colocar un resumen muy breve de lo que solicita).")
+
+            pdf_generator_derechoP.add_text("Respetados señores: ")
+
+            pdf_generator_derechoP.add_paragraph(ptext= f"yo, {request.data['summaryDemanda']['nombreDemandante']} {request.data['summaryDemanda']['apellidoDemandante']} identificado como aparece al pie de mi firma, de conformidad con lo establecido en el artículo 23 de la Constitución Política, en concordancia con la Ley 1755 de 2015, comedidamente me permito presentar la petición que más adelante se describe.")
+
+            pdf_generator_derechoP.add_text("<b>Hechos: </b>")
+
+            index:int=1
+            for hecho in request.data['hechos']:
+                pdf_generator_derechoP.add_paragraph(ptext=f"{index}"+". "+hecho)
+                index+=1
+
+            pdf_generator_derechoP.add_text("<b>Petición: </b>")
+            pdf_generator_derechoP.add_paragraph(ptext=request.data['cuantia'])
+
+            pdf_generator_derechoP.add_text("<b>Finalidad: </b>")
+            pdf_generator_derechoP.add_paragraph(ptext=f"Se solicita que la empresa {request.data['summaryDemanda']['nombreEmpresa']} atienda a las peticiones declaradas en el presente derecho petición.")
+
+            pdf_generator_derechoP.add_text("<b>Notificación: </b>")
+            pdf_generator_derechoP.add_paragraph(ptext=f"Por favor enviar la correspondencia a través de alguno de los siguientes medios:")
+
+            pdf_generator_derechoP.add_paragraph(ptext=f" - Correo electrónico: {email}")
+            pdf_generator_derechoP.add_paragraph(ptext=f" - Dirección de residencia: {request.data['signature'][2].split('Dirección: ')[1]}")
+            pdf_generator_derechoP.add_paragraph(ptext=f" - Ciudad: {request.data['summaryDemanda']['lugarResisdenciaDemandante']}")
+
+            pdf_generator_derechoP.add_text("<b>Cordialmente: </b>")
+
+            pdf_generator_derechoP.add_text(signature)
+
+
+
+
+
 
             pdf_generator_derechoP.generate_pdf()
 
