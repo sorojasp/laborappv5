@@ -25,8 +25,8 @@ class SenderEmail:
 
 
     def __init__(self, sender_email="recyappbeta1@gmail.com",
-                       smtp_server="smtp.googlemail.com",#"smtp.gmail.com"
-                       port=465,
+                       smtp_server="smtp.gmail.com",#"smtp.gmail.com"
+                       port=587,
                        password_email= "#Stiven19111985",
                        body = "This is an email with attachment sent from Python"):
 
@@ -120,13 +120,15 @@ class SenderEmail:
 
             self.__message["To"] = receiver_email
             context = ssl.create_default_context()
-            with smtplib.SMTP_SSL(self.__smtp_server, self.__port, context=context) as server:
-
+            with smtplib.SMTP(self.__smtp_server, self.__port) as server:
+                server.ehlo()
+                server.starttls(context=context)
+                server.ehlo()  # Can be omitted
                 server.login(self.__sender_email, self.__password_email)
                 server.sendmail(self.__sender_email, receiver_email, self.__text_obj)
                 return True
         except Exception as error :
-            print("Error meanwhile send the email: "+error)
+            print("Error meanwhile send the email: "+ str(error))
             return False
 
 
