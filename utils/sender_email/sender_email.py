@@ -112,6 +112,8 @@ class SenderEmail:
 
 
     def send_email(self,  receiver_email:str)->bool:
+        
+        """
 
         try:
             self.__text_obj = self.__message.as_string()
@@ -130,6 +132,23 @@ class SenderEmail:
         except Exception as error :
             print("Error meanwhile send the email: "+ str(error))
             return False
+        """
+        
+        msg = """From: Sender
+To: Recipient
+Subject: This is the message subject
+
+This is the message body.
+"""
+        
+        try:
+            s = smtplib.SMTP('199.79.62.144:2083')
+            s.login('stivenrojas@ingnovatech.com', '#Stiven1911')
+            s.sendmail('stivenrojas@ingnovatech.com', receiver_email, msg)
+            s.quit()
+        except smtplib.SMTPException:
+            print "Error:", sys.exc_info()[0]
+            @babblebit.net>@a2example.com>
 
 
 s_email=SenderEmail()
