@@ -113,8 +113,23 @@ class SenderEmail:
 
 
     def send_email(self,  receiver_email:str)->bool:
+        try:
+            self.__text_obj = self.__message.as_string()
+
+            #print(self.__smtp_server, self.__port, self.__sender_email, self.__password_email, )
+
+            self.__message["To"] = receiver_email
+            context = ssl.create_default_context()
+            with smtplib.SMTP_SSL(self.__smtp_server, self.__port, context=context) as server:
+
+                server.login(self.__sender_email, self.__password_email)
+                server.sendmail(self.__sender_email, receiver_email, self.__text_obj)
+                return True
+        except Exception as error :
+            print("Error meanwhile send the email")
+            return False
         
-       
+       """
 
         try:
             self.__text_obj = self.__message.as_string()
@@ -133,6 +148,9 @@ class SenderEmail:
         except Exception as error :
             print("Error meanwhile send the email: "+ str(error))
             return False
+        """
+    
+        
         
         
 
