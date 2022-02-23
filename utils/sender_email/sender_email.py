@@ -147,8 +147,8 @@ This is the message body.
             s.sendmail('stivenrojas@ingnovatech.com', receiver_email, msg)
             s.quit()
         except smtplib.SMTPException:
-            print "Error:", sys.exc_info()[0]
-            @babblebit.net>@a2example.com>
+            print("Error:", sys.exc_info()[0])
+            
 
 
 s_email=SenderEmail()
