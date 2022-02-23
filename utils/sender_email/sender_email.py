@@ -25,8 +25,8 @@ class SenderEmail:
 
 
     def __init__(self, sender_email="stivenrojas@ingnovatech.com",
-                       smtp_server="smtp.gmail.com",#"smtp.gmail.com"
-                       port=587,
+                       smtp_server="mail.ingnovatech.com",#"smtp.gmail.com"
+                       port=465,
                        password_email= "#Stiven1911"   #"#Stiven19111985",
                        body = "This is an email with attachment sent from Python"):
 
