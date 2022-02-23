@@ -143,12 +143,13 @@ DATABASES = {
     'default': {
 
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'laborapp',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+            'NAME': 'ingnova1_prueba',
+            'USER': 'ingnova1_stiven',
+            'PASSWORD': '#Stiven1911',
+            'HOST': '199.79.62.144',
+            'PORT': '3306',
 
+            }
     }
 }
 
