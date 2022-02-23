@@ -128,8 +128,21 @@ class SenderEmail:
         except Exception as error :
             print("Error meanwhile send the email")
             return False
+      
         
-       """
+        
+        
+
+
+
+s_email=SenderEmail()
+s_email.set_email("Helloooooo =)", "Hi", "I hope all is well")
+
+if s_email.attach_file("../../tmp/demanda.pdf"):
+    s_email.send_email("stivenorlandorojaspulido@gmail.com")
+    
+    
+"""
 
         try:
             self.__text_obj = self.__message.as_string()
@@ -148,16 +161,5 @@ class SenderEmail:
         except Exception as error :
             print("Error meanwhile send the email: "+ str(error))
             return False
-        """
+"""
     
-        
-        
-        
-
-
-
-s_email=SenderEmail()
-s_email.set_email("Helloooooo =)", "Hi", "I hope all is well")
-
-if s_email.attach_file("../../tmp/demanda.pdf"):
-    s_email.send_email("stivenorlandorojaspulido@gmail.com")
