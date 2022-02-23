@@ -24,10 +24,10 @@ class SenderEmail:
 
 
 
-    def __init__(self, sender_email="recyappbeta1@gmail.com",
+    def __init__(self, sender_email="stivenrojas@ingnovatech.com",
                        smtp_server="smtp.gmail.com",#"smtp.gmail.com"
                        port=587,
-                       password_email= "#Stiven19111985",
+                       password_email= "#Stiven1911"   #"#Stiven19111985",
                        body = "This is an email with attachment sent from Python"):
 
                        self.__sender_email=sender_email
@@ -113,7 +113,7 @@ class SenderEmail:
 
     def send_email(self,  receiver_email:str)->bool:
         
-        """
+       
 
         try:
             self.__text_obj = self.__message.as_string()
@@ -132,23 +132,9 @@ class SenderEmail:
         except Exception as error :
             print("Error meanwhile send the email: "+ str(error))
             return False
-        """
         
-        msg = """From: Sender
-To: Recipient
-Subject: This is the message subject
+        
 
-This is the message body.
-"""
-        
-        try:
-            s = smtplib.SMTP('199.79.62.144:2083')
-            s.login('stivenrojas@ingnovatech.com', '#Stiven1911')
-            s.sendmail('stivenrojas@ingnovatech.com', receiver_email, msg)
-            s.quit()
-        except smtplib.SMTPException:
-            print("Error:", sys.exc_info()[0])
-            
 
 
 s_email=SenderEmail()
