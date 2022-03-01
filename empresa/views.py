@@ -68,6 +68,7 @@ class EmpresaViews(APIView):
 
 
         try:
+            person=None
             if request.data['persona_id']!='None':
                 person = PersonModel.objects.get(id=request.data['persona_id'])
 
