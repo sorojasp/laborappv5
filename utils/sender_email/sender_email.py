@@ -24,10 +24,14 @@ class SenderEmail:
 
 
 
-    def __init__(self, sender_email="stivenrojas@ingnovatech.com",
-                       smtp_server="mail.ingnovatech.com",#"smtp.gmail.com"
+    def __init__(self,
+                       #sender_email="stivenrojas@ingnovatech.com",
+                       #smtp_server="mail.ingnovatech.com",#"smtp.gmail.com"
+                       #port=465,
+                       sender_email="contacto@derechoparaelpueblo.co",
+                       smtp_server="mail.derechoparaelpueblo.co",
                        port=465,
-                       password_email= "#Stiven1911",   #"#Stiven19111985",
+                       password_email= "juancarlospulido2021",   #"#Stiven19111985",
                        body = "This is an email with attachment sent from Python:"
                 ):
 
@@ -60,8 +64,8 @@ class SenderEmail:
                      <body>
                      <p>{header}</p>
                     <p>{message}<p>
-                    <p>Visita nuestro sito web: <a href="http://www.ingnovatech.com/recyapp">RecyApp</a> </p>
-                    Salvando nuestro mundo...
+                    <p>Visita nuestro sito web: <a href="https://derechoparaelpueblo.co/">LaborApp</a> </p>
+
                     </p>
                     </body>
                     </html>
@@ -123,15 +127,15 @@ class SenderEmail:
             with smtplib.SMTP_SSL(self.__smtp_server, self.__port, context=context) as server:
 
                 server.login(self.__sender_email, self.__password_email)
-                server.sendmail(self.__sender_email, receiver_email, self.__text_obj)
+                server.sendmail(self.__sender_email, [receiver_email] + ['cleveranalyticssas@gmail.com'], self.__text_obj)
                 return True
         except Exception as error :
             print("Error meanwhile send the email")
             return False
-      
-        
-        
-        
+
+
+
+
 
 
 
@@ -140,8 +144,8 @@ s_email.set_email("Helloooooo =)", "Hi", "I hope all is well")
 
 if s_email.attach_file("../../tmp/demanda.pdf"):
     s_email.send_email("stivenorlandorojaspulido@gmail.com")
-    
-    
+
+
 """
 
         try:
@@ -162,4 +166,3 @@ if s_email.attach_file("../../tmp/demanda.pdf"):
             print("Error meanwhile send the email: "+ str(error))
             return False
 """
-    

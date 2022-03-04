@@ -257,7 +257,17 @@ class ArchivoDemandaView(APIView):
 
 
             s_email=SenderEmail()
-            s_email.set_email("Helloooooo =)", "Hi", "I hope all is well")
+            s_email.set_email("Demanda generada", "Hola", f"""\
+
+      Hola soy Juan Carlos Pulido,
+
+      En adjunto encontrarás tres archivos; el primero es la demanda que has generado a través de Laborapp, el segundo es el
+      derecho de petición que, en caso de no haberlo hecho, debes entregar a tu empleador y el tercer archivo es un instructivo
+      del paso a paso que debes seguir para radicar tu demanda ante la rama judicial.
+
+
+
+                                  """)
 
 
 
