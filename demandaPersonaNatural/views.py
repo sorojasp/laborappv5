@@ -71,7 +71,16 @@ class DemandaPersonaNaturalViews(APIView):
 
             persona=None
             municipio=None
+
+            informedesicionfinaldemandapersonan = None
+            fecharrealradicacionderechopetipersonan = None
+            fechademandapersonanatural = None
+            fecharrealradicaciondemandapersonan = None
+            fechapropuestaradicaciondemandapersonan = None
+            respuestafinaldemandaersonan=None
+
             try:
+                print("***  Exist informedesicionfinaldemandapersonan: ", request.data["informedesicionfinaldemandapersonan"])
 
                 if request.data['ubicacion_id']!='None':
                     ubicacion = Municipios.objects.get(id_municipio=request.data['ubicacion_id'])
@@ -82,15 +91,47 @@ class DemandaPersonaNaturalViews(APIView):
                 if request.data['demandante_id']!='None':
                     demandante = PersonModel.objects.get(id=request.data['demandante_id'])
 
+                if request.data["informedesicionfinaldemandapersonan"]!=None:
+                    informedesicionfinaldemandapersonan=request.data["informedesicionfinaldemandapersonan"]
+                    print("***  =( Exist informedesicionfinaldemandapersonan: ", request.data["informedesicionfinaldemandapersonan"])
+                    print("***  =( Exist informedesicionfinaldemandapersonan: ", informedesicionfinaldemandapersonan)
+
+                if request.data["fecharrealradicacionderechopetipersonan"]!=None:
+                    fecharrealradicacionderechopetipersonan=request.data["fecharrealradicacionderechopetipersonan"]
+                    print("***  Exist fecharrealradicacionderechopetipersonan ")
+
+                if request.data["fechademandapersonanatural"]!=None:
+                    fechademandapersonanatural=request.data["fechademandapersonanatural"]
+                    print("***  Exist fechademandapersonanatural")
+
+                if request.data["fecharrealradicaciondemandapersonan"]!=None:
+                    fecharrealradicaciondemandapersonan=request.data["fecharrealradicaciondemandapersonan"]
+                    print("***  Exist fecharrealradicaciondemandapersonan")
+
+                if request.data["fechapropuestaradicaciondemandapersonan"]!=None:
+                    fechapropuestaradicaciondemandapersonan=request.data["fechapropuestaradicaciondemandapersonan"]
+                    print("***  Exist fechapropuestaradicaciondemandapersonan")
+
+                if request.data["respuestafinaldemandaersonan"]!=None:
+                    respuestafinaldemandaersonan=request.data["respuestafinaldemandaersonan"]
+                    print("***  Exist respuestafinaldemandaersonan")
+
+                print("**informedesicionfinaldemandapersonan: ", informedesicionfinaldemandapersonan)
+
+
+
+
+
+
                 demandaPersonaNatural_obj=DemandaPersonaNaturalModel.objects.create(
-                      superaminimacuantiapersnat = request.data["superaminimacuantiapersnat"],
-                                    montototaldemandapersnat = request.data["montototaldemandapersnat"],
-                                    respuestafinaldemandaersonan = request.data["respuestafinaldemandaersonan"],
-                                    informedesicionfinaldemandapersonan = request.data["informedesicionfinaldemandapersonan"],
-                                    fecharrealradicacionderechopetipersonan = request.data["fecharrealradicacionderechopetipersonan"],
-                                    fechademandapersonanatural = request.data["fechaDemandaPersonaNatural"],
-                                    fecharrealradicaciondemandapersonan = request.data["fecharrealradicaciondemandapersonan"],
-                                    fechapropuestaradicaciondemandapersonan = request.data["fechapropuestaradicaciondemandapersonan"],
+                superaminimacuantiapersnat = request.data["superaminimacuantiapersnat"],
+                    montototaldemandapersnat = request.data["montototaldemandapersnat"],
+                    respuestafinaldemandaersonan=respuestafinaldemandaersonan,
+                    informedesicionfinaldemandapersonan=informedesicionfinaldemandapersonan,
+                                    fecharrealradicacionderechopetipersonan=fecharrealradicacionderechopetipersonan,
+                                    fechademandapersonanatural=fechademandapersonanatural,
+                                    fecharrealradicaciondemandapersonan=fecharrealradicaciondemandapersonan,
+                                    fechapropuestaradicaciondemandapersonan=fechapropuestaradicaciondemandapersonan,
                                     contrato = contrato,
                                     personanatural = personaNatural,
                                     ubicacion = ubicacion,

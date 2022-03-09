@@ -21,6 +21,7 @@ class DemandaPersonaNaturalModel(models.Model):
     fecharrealradicaciondemandapersonan = models.DateField(db_column='fecharRealRadicacionDemandaPersonaN', blank=True, null=True)  # Field name made lowercase.
     fechapropuestaradicacionderechopetipersonan = models.DateField(db_column='fechaPropuestaRadicacionDerechoPetiPersonaN', blank=True, null=True)  # Field name made lowercase.
     fecharrealradicacionderechopetipersonan = models.DateField(db_column='fecharRealRadicacionDerechoPetiPersonaN', blank=True, null=True)  # Field name made lowercase.
+    fechademandapersonanatural=models.DateField(db_column='fechademandapersonanatural', blank=True, null=True)
     informedesicionfinaldemandapersonan = models.TextField(db_column='informeDesicionFinalDemandaPersonaN', blank=True, null=True)  # Field name made lowercase.
     respuestafinaldemandaersonan = models.TextField(db_column='respuestaFinalDemandaersonaN', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
     montototaldemandapersnat = models.FloatField(db_column='montoTotalDemandaPersNat', blank=True, null=True)  # Field name made lowercase.
