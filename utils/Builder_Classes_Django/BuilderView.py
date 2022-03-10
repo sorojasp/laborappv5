@@ -92,8 +92,7 @@ class {self.appName[0].upper()+self.appName[1:]}Views(APIView):
                 'detail':None
                 {self._corchete_cierra}
 
-            persona=None
-            municipio=None
+
             try:
 
                 {self.create_object_sentences()}
@@ -197,24 +196,32 @@ class {self.appName[0].upper()+self.appName[1:]}Views(APIView):
         first_part_create:str=f'                {self.appName}_obj={self.appName[0].upper()+self.appName[1:]}Model.objects.create('+'\n'
         command:str=''
         data_of_anoter_models:str=''
+        set_fields:str=''
+        data_primitive:str=''
+
 
         for field in self.fields_types:
             field_splited:list= field.split(":")
             name_field:str=field_splited[0]
             type_field:str=field_splited[1]
+            set_fields=f'                {name_field} = None'+'\n'+set_fields
+            check_valuesIn_fields=''
 
 
             if type_field in  native_type_data:
 
-                command=f'                      {name_field} = request.data["{name_field}"]'+','+'\n'+'              '+command
+
+                conditional=f"                if request.data['{name_field}']!=None:"+'\n'
+                statement=f"                    {name_field} = request.data['{name_field}_id']"+'\n'+'\n'
+                data_primitive=data_primitive+conditional+statement
             else:
 
-                conditional=f"                if request.data['{name_field}_id']!='None':"+'\n'
-                statement=f"                    {name_field} = {type_field[0].upper()+type_field[1:]}Model.objects.get(id=request.data['{name_field}_id'])"+'\n'
+                conditional=f"                if request.data['{name_field}_id']!=None:"+'\n'
+                statement=f"                    {name_field} = {type_field[0].upper()+type_field[1:]}Model.objects.get(id=request.data['{name_field}_id'])"+'\n'+'\n'
 
                 data_of_anoter_models=data_of_anoter_models+conditional+statement
 
 
-                command=f'                      {name_field} = {name_field}'+','+'\n'+'              '+command
+            command=f'                                                          {name_field} = {name_field}'+','+'\n'+'              '+command
 
-        return data_of_anoter_models+'\n'+first_part_create + command + ')'
+        return set_fields+data_primitive+data_of_anoter_models+'\n'+first_part_create + command + ')'

@@ -1,22 +1,31 @@
+
+
 from django.db import models
 
-# Create your models here.
+
+#import models from another apps
 
 
 
-class Demandaempresa(models.Model):
-    iddemandaempresa = models.AutoField(db_column='idDemandaEmpresa', primary_key=True)  # Field name made lowercase.
-    fechademandaempresa = models.DateField(db_column='fechaDemandaEmpresa')  # Field name made lowercase.
-    codigociudad = models.ForeignKey(Ciudades, models.DO_NOTHING, db_column='codigoCiudad')  # Field name made lowercase.
-    tipodocumentopersona = models.ForeignKey('Personas', models.DO_NOTHING, db_column='tipoDocumentoPersona')  # Field name made lowercase.
-    numerodocumentopersona = models.ForeignKey('Personas', models.DO_NOTHING, db_column='numeroDocumentoPersona')  # Field name made lowercase.
-    nitempresa = models.ForeignKey('Empresa', models.DO_NOTHING, db_column='NItEmpresa')  # Field name made lowercase.
-    idcontrato = models.ForeignKey(Contratolaboral, models.DO_NOTHING, db_column='idContrato')  # Field name made lowercase.
-    fechapropuestaradicaciondemandaempresa = models.DateField(db_column='fechaPropuestaRadicacionDemandaEmpresa', blank=True, null=True)  # Field name made lowercase.
-    fecharrealradicaciondemandaempresa = models.DateField(db_column='fecharRealRadicacionDemandaEmpresa', blank=True, null=True)  # Field name made lowercase.
-    fechapropuestaradicacionderechopetiempresa = models.DateField(db_column='fechaPropuestaRadicacionDerechoPetiEmpresa', blank=True, null=True)  # Field name made lowercase.
-    fecharrealradicacionderechopetiempresa = models.DateField(db_column='fecharRealRadicacionDerechoPetiEmpresa', blank=True, null=True)  # Field name made lowercase.
-    informedesicionfinaldemandaempresa = models.TextField(db_column='informeDesicionFinalDemandaEmpresa', blank=True, null=True)  # Field name made lowercase.
-    respuestafinaldemandaempresa = models.TextField(db_column='respuestaFinalDemandaEmpresa', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
-    montototaldemandapersjuri = models.FloatField(db_column='montoTotalDemandaPersJuri', blank=True, null=True)  # Field name made lowercase.
-    superaminimacuantiapersjuri = models.TextField(db_column='superaMinimaCuantiaPersJuri', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
+from user_profile.models import Municipios
+from contratoLaboral.models import ContratoLaboralModel
+from empresa.models import EmpresaModel
+
+class DemandaEmpresaModel(models.Model):
+
+    fechaDemandaEmpresa = models.DateTimeField(null=True, blank=True)
+    codigoCiudad = models.ForeignKey(Municipios, models.DO_NOTHING, db_column='ubicacion', blank=True, null=True)
+    tipoDocumentoPersona = models.CharField(max_length=255,  null=True, blank=True)
+    numeroDocumentoPersona = models.CharField(max_length=255, null=True, blank=True)
+    NItEmpresa =  models.ForeignKey(EmpresaModel, models.DO_NOTHING, db_column='empresa', blank=True, null=True)
+    idContrato = models.ForeignKey(ContratoLaboralModel, models.DO_NOTHING, db_column='contrato', blank=True, null=True)
+    fechaPropuestaRadicacionDemandaEmpresa = models.DateTimeField(null=True, blank=True)
+    fecharRealRadicacionDemandaEmpresa = models.DateTimeField(null=True, blank=True)
+    fechaPropuestaRadicacionDerechoPetiEmpresa = models.DateTimeField(null=True, blank=True)
+    fecharRealRadicacionDerechoPetiEmpresa = models.DateTimeField(null=True, blank=True)
+    informeDesicionFinalDemandaEmpresa = models.CharField(max_length=255, null=True, blank=True)
+    respuestaFinalDemandaEmpresa = models.BooleanField(default=True)
+    montoTotalDemandaPersJuri = models.CharField(max_length=255, null=True, blank=True)
+    superaMinimaCuantiaPersJuri = models.BooleanField(default=True)
+    id = models.AutoField(primary_key=True)
+    is_active=models.BooleanField(default=True)
