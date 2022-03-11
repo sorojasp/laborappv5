@@ -30,7 +30,7 @@ class {self.appName.capitalize()}(models.Model):
         all_types_field = typePy_typeFieldsDj.keys()
         type_found = False
 
-        
+
 
         for field in self.fields_types:
             type_input: str = str(field).split(":")[1]
@@ -55,15 +55,15 @@ class {self.appName.capitalize()}(models.Model):
     def __map_typePy_typeFieldsDj(self)->dict:
         """se configura un mapeo entre los tipos de datos de python y los tipos de datos en los campos de Django"""
 
-        typePy_typeFieldsDj: list = {'str': 'models.CharField(max_length=255, unique=True, null=True, blank=True)',
-                                     'email': 'models.EmailField(max_length=255, unique=True, null=True, blank=True)',
+        typePy_typeFieldsDj: list = {'str': 'models.CharField(max_length=255, null=True, blank=True)',
+                                     'email': 'models.EmailField(max_length=255, null=True, blank=True)',
                                      'int': 'models.IntegerField',
                                      'pk': 'models.AutoField(primary_key=True)',
                                      'Boolean':'models.BooleanField(default=True, null=True, blank=True)',
                                      'time': 'models.TimeField(null=True, blank=True)',
                                      'datetime':'models.DateTimeField(null=True, blank=True)',
                                      'file': 'models.FileField()',
-                                     'float':'models.DecimalField(max_digits=5, decimal_places=2, blank=True)',
+                                     'float':'models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)',
                                      'image': 'models.ImageField(upload_to="avatars",blank=True,null=True,verbose_name="Photo")'
                                     }
 

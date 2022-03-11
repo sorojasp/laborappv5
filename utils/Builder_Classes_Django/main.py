@@ -7,7 +7,7 @@ from BuilderView import BuilderView
 from BuilderModels import BuilderModels
 import os
 
-appName: str = "conflicto_despidoSJC"#Nombre de la app
+appName: str = "ConflictoPagoSalario"#Nombre de la app
 nameFile_baseClass = f'{appName.capitalize()}.py'#Nombre de la clase base
 """
 attributes = [
@@ -30,30 +30,17 @@ attributes = [
               ]#atributos de la app
 """
 attributes = [
-'idDemandaPersonaNatural:DemandaPersonaNatural',
-'idDemandaEmpresa:DemandaEmpresa',
-'fechaInicioContrato:datetime',
-'tipoContrato:str',
-'idContrato:Contrato',
-'fechaDespido:datetime',
-'montoDinero_DSJC:str',
-'id:pk',
-'is_active:Boolean'
+   'demandaPersonaNatural:DemandaPersonaNaturalModel',
+   'demandaEmpresa:DemandaEmpresaModel',
+   'contrato:ContratoLaboralModel',
+   'fechaInicioNoPagoSalario:datetime',
+   'fechaFinNoPagoSalario:datetime',
+   'montoDinero_PagoSalario:str',
+   'id:pk',
+   'is_active:Boolean'
              ]
 
-"""
-conflictoDespidoSJC
 
-idConflictoDespidoSJC INT (60) NOT NULL AUTO_INCREMENT,
-idDemandaPersonaNatural INT (60)  NULL, /*llave foranea desde demanda persona Natutal*/
-idDemandaEmpresa INT (60)  NULL,  /*llave foranea desde demanda a empresa */
-fechaInicioContrato DATE NOT NULL, /* llave foranea desde contrato */
-tipoContrato VARCHAR(100) NOT NULL,/* agregado sobre diseño incial, 13,mar,2019*/
-idContrato INT (60) NOT NULL,
-fechaDespido DATE  NULL,
-montoDinero_DSJC INT (60) NULL,
-
-"""
 
 
 
