@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'archivoDemanda',
     'demandaEmpresa',
     'conflictoDespidoSJC',
-    'conflictoPagoSalario'
+    'conflictoPagoSalario',
+    'conflictoVacaciones',
 ]
 MIDDLEWARE = [
 

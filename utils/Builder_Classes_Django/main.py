@@ -7,7 +7,7 @@ from BuilderView import BuilderView
 from BuilderModels import BuilderModels
 import os
 
-appName: str = "ConflictoPagoSalario"#Nombre de la app
+appName: str = "ConflictoPagoVacaciones"#Nombre de la app
 nameFile_baseClass = f'{appName.capitalize()}.py'#Nombre de la clase base
 """
 attributes = [
@@ -30,12 +30,11 @@ attributes = [
               ]#atributos de la app
 """
 attributes = [
-   'demandaPersonaNatural:DemandaPersonaNaturalModel',
-   'demandaEmpresa:DemandaEmpresaModel',
-   'contrato:ContratoLaboralModel',
-   'fechaInicioNoPagoSalario:datetime',
-   'fechaFinNoPagoSalario:datetime',
-   'montoDinero_PagoSalario:str',
+
+   'montoDinero_Vacaciones:str',
+   'fechaInicioCalculoVacaciones:datetime',
+   'fechaFinalCalculoVacaciones:datetime',
+   'desdeCuandoNoPaganVacaciones:datetime',
    'id:pk',
    'is_active:Boolean'
              ]

@@ -33,6 +33,7 @@ from archivoDemanda.views import ArchivoDemandaView
 from demandaEmpresa.views import DemandaEmpresaViews
 from conflictoDespidoSJC.views import ConflictoDespidoSJCViews
 from conflictoPagoSalario.views import ConflictoPagoSalarioViews
+from conflictoVacaciones.views import ConflictoPagoVacacionesViews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -50,6 +51,7 @@ urlpatterns = [
     path('archivo-demanda/', ArchivoDemandaView.as_view()),
     path('demanda-empresa/', DemandaEmpresaViews.as_view()),
     path('conflicto-despido/', ConflictoDespidoSJCViews.as_view()),
-    path('conflicto-pago-salario/',ConflictoPagoSalarioViews.as_view())
+    path('conflicto-pago-salario/',ConflictoPagoSalarioViews.as_view()),
+    path('conflicto-pago-vacaciones/', ConflictoPagoVacacionesViews.as_view())
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # para producción
