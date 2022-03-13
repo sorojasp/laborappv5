@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'conflictoDespidoSJC',
     'conflictoPagoSalario',
     'conflictoVacaciones',
+    'conflictoCesantias',
+    'conflictoLiquidacion'
 ]
 MIDDLEWARE = [
 

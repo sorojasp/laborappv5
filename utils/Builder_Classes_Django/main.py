@@ -7,7 +7,7 @@ from BuilderView import BuilderView
 from BuilderModels import BuilderModels
 import os
 
-appName: str = "ConflictoPagoVacaciones"#Nombre de la app
+appName: str = "ConflictoPrima"#Nombre de la app
 nameFile_baseClass = f'{appName.capitalize()}.py'#Nombre de la clase base
 """
 attributes = [
@@ -31,12 +31,11 @@ attributes = [
 """
 attributes = [
 
-   'montoDinero_Vacaciones:str',
-   'fechaInicioCalculoVacaciones:datetime',
-   'fechaFinalCalculoVacaciones:datetime',
-   'desdeCuandoNoPaganVacaciones:datetime',
-   'id:pk',
-   'is_active:Boolean'
+            'montoDinero_Prima:str',
+            'fechaUltimaPrimaPagada:datetime',
+            'fechaFinalNoPagoPrima:datetime',
+            'id:pk',
+            'is_active:Boolean'
              ]
 
 
@@ -61,7 +60,7 @@ builderModels: BuilderClass = BuilderModels(appName, attributes, f"{directory}/m
 
 #builders = [builderView, builderBaseClass, builderSerializer, builderUrls, builderModels]
 
-builders=[builderView,builderModels]
+builders=[builderView]
 
 
 for builder in builders:
