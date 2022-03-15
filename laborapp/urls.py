@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 
 
 from django.conf import settings
-from user_profile.views import UserProfile,UserLogin
+from user_profile.views import UserProfile,UserLogin,PasswordRecovery
 from persona.views import Personas as PersonaView
 from persona.views import IdentificationDocument
 from user_profile.views import Departamentos, Municipios
@@ -62,6 +62,7 @@ urlpatterns = [
     path('conflicto-pago-liquidacion/',ConflictoLiquidacionViews.as_view()),
     path('conflicto-contacta-abogado/', ConflictoContactaAbogadoViews.as_view()),
     path('conflicto-primas/', ConflictoPrimasViews.as_view()),
-    path('conflicto-intereses-cesantias/',ConflictoInteresesCesantiasViews.as_view())
+    path('conflicto-intereses-cesantias/',ConflictoInteresesCesantiasViews.as_view()),
+    path('password-recovery/', PasswordRecovery.as_view())
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # para producción

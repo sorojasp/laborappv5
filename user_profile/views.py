@@ -12,6 +12,8 @@ import json
 from utils.encrypt.encrypt import Encrypt
 #from utils.sender_email.EnviadorCorreos import EnviadorCorreos
 
+from utils.sender_email.sender_email import SenderEmail
+
 # Create your views here.
 
 
@@ -291,3 +293,59 @@ class Municipios(APIView):
 
 
         return Response({'data':response}, status=status)
+
+
+class PasswordRecovery(APIView):
+
+    def patch(self,request,format=None,pk=None):
+
+        encrypt=Encrypt()
+        s_email=SenderEmail()
+
+        status=500
+
+        response={
+            'result':False,
+            'data':None,
+            'detail':None
+            }
+        data_to_update={
+             'email':None,
+             'password':None
+             }
+
+        try:
+
+            email=request.data['email']
+
+            user_obj=models.UserProfile.objects.filter(email=email)
+
+            if len(user_obj)==1:
+
+                s_email.set_email("Recuperación de contraseña en laborapp", "Hola", f"""\
+
+          Tu contraseña es: {encrypt.decrypt_msg(user_obj[0].password)}
+
+
+
+                                      """)
+                s_email.send_email(email)
+
+
+
+
+
+
+
+
+
+            response['result']=True
+            response['detail']='Tu anterior contraseña fué enviada a tu correo'
+
+        except Exception as error:
+            print("error in update process:", error)
+            response['detail']=str(error)
+
+
+
+        return Response(response,200)
