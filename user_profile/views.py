@@ -331,16 +331,15 @@ class PasswordRecovery(APIView):
                                       """)
                 s_email.send_email(email)
 
+                response['result']=True
+                response['detail']='Tú contraseña fué enviada a tu correo'
+
+            if len(user_obj)==0:
+                response['result']=False
+                response['detail']='Correo no existe en laborapp'
+                status=500
 
 
-
-
-
-
-
-
-            response['result']=True
-            response['detail']='Tu anterior contraseña fué enviada a tu correo'
 
         except Exception as error:
             print("error in update process:", error)
@@ -348,4 +347,4 @@ class PasswordRecovery(APIView):
 
 
 
-        return Response(response,200)
+        return Response(response,status)
