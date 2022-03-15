@@ -158,7 +158,7 @@ class {self.appName[0].upper()+self.appName[1:]}Views(APIView):
 
             try:
                 id=request.query_params.get('id')
-                {self.appName}_obj={self.appName}Model.objects.filter(id=int(request.query_params.get('id')))
+                {self.appName}_obj={self.appName.capitalize()}Model.objects.filter(id=int(request.query_params.get('id')))
 
                 if len({self.appName}_obj)==0:
                     response['detail'] ='{self.appName} no existe en laborapp'

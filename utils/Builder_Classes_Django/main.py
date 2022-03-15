@@ -7,7 +7,7 @@ from BuilderView import BuilderView
 from BuilderModels import BuilderModels
 import os
 
-appName: str = "ConflictoPrima"#Nombre de la app
+appName: str = "conflictoPrimas"#Nombre de la app
 nameFile_baseClass = f'{appName.capitalize()}.py'#Nombre de la clase base
 """
 attributes = [
@@ -30,10 +30,12 @@ attributes = [
               ]#atributos de la app
 """
 attributes = [
-
-            'montoDinero_Prima:str',
             'fechaUltimaPrimaPagada:datetime',
             'fechaFinalNoPagoPrima:datetime',
+            'montoDinero_Prima:str',
+            'demandaPersonaNatural:DemandaPersonaNatural',
+            'demandaEmpresa:DemandaEmpresa',
+            'contrato:ContratoLaboral'
             'id:pk',
             'is_active:Boolean'
              ]
@@ -60,7 +62,7 @@ builderModels: BuilderClass = BuilderModels(appName, attributes, f"{directory}/m
 
 #builders = [builderView, builderBaseClass, builderSerializer, builderUrls, builderModels]
 
-builders=[builderView]
+builders=[builderView, builderModels]
 
 
 for builder in builders:

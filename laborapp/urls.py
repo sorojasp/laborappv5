@@ -36,6 +36,9 @@ from conflictoPagoSalario.views import ConflictoPagoSalarioViews
 from conflictoVacaciones.views import ConflictoPagoVacacionesViews
 from conflictoCesantias.views import ConflictoCesantiasViews
 from conflictoLiquidacion.views import ConflictoLiquidacionViews
+from conflictoContactaAbogado.views import ConflictoContactaAbogadoViews
+from conflictoPrimas.views import ConflictoPrimasViews
+from conflictoInteresesCesantias.views import ConflictoInteresesCesantiasViews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -56,6 +59,9 @@ urlpatterns = [
     path('conflicto-pago-salario/',ConflictoPagoSalarioViews.as_view()),
     path('conflicto-pago-vacaciones/', ConflictoPagoVacacionesViews.as_view()),
     path('conflicto-pago-cesantias/',ConflictoCesantiasViews.as_view()),
-    path('conflicto-pago-liquidacion/',ConflictoLiquidacionViews.as_view())
+    path('conflicto-pago-liquidacion/',ConflictoLiquidacionViews.as_view()),
+    path('conflicto-contacta-abogado/', ConflictoContactaAbogadoViews.as_view()),
+    path('conflicto-primas/', ConflictoPrimasViews.as_view()),
+    path('conflicto-intereses-cesantias/',ConflictoInteresesCesantiasViews.as_view())
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # para producción

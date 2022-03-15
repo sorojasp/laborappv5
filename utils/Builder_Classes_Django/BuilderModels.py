@@ -49,7 +49,7 @@ class {self.appName.capitalize()}(models.Model):
     {str(field).split(":")[0]} = models.ForeignKey({str(str(field).split(":")[0]).capitalize()}, on_delete=models.CASCADE)"""
                 self.fileUtil.writeToFile(self.nameFile, attr, True, True)
 
-                print(f'{str(field).split(":")[0]} = models.ForeignKey({str(str(field).split(":")[0]).capitalize()}, on_delete=models.CASCADE)')
+                print(f'{str(field).split(":")[0]} = models.ForeignKey({str(str(field).split(":")[0]).capitalize()}Model, on_delete=models.CASCADE)')
 
 
     def __map_typePy_typeFieldsDj(self)->dict:
