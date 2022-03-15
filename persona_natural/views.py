@@ -49,6 +49,7 @@ class PersonaNatural(APIView):
     def post(self, request, *args, **kwargs):
 
         status=500
+        print("here ....")
 
         response={
             'result':False,
@@ -57,7 +58,7 @@ class PersonaNatural(APIView):
             }
 
         user=None
-        person=person
+        person=None
 
 
         try:
