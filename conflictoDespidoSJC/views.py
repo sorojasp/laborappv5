@@ -64,6 +64,8 @@ class ConflictoDespidoSJCViews(APIView):
 
         def post(self, request, *args, **kwargs):
 
+
+
             status=500
             response={
                 'result':False,
@@ -99,8 +101,12 @@ class ConflictoDespidoSJCViews(APIView):
                 if request.data['idDemandaPersonaNatural_id']!=None:
                     demandaPersonaNatural = DemandaPersonaNaturalModel.objects.get(id=request.data['idDemandaPersonaNatural_id'])
 
+
                 if request.data['idDemandaEmpresa_id']!=None:
-                    demandaEmpresa = demandaEmpresa.objects.get(id=request.data['idDemandaEmpresa_id'])
+
+
+                    demandaEmpresa = DemandaEmpresaModel.objects.get(id=request.data['idDemandaEmpresa_id'])
+                    print("demandaEmpresa", demandaEmpresa)
 
                 if request.data['idContrato_id']!=None:
                     contrato = ContratoLaboralModel.objects.get(id=request.data['idContrato_id'])
