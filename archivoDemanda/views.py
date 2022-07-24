@@ -123,6 +123,18 @@ class ArchivoDemandaView(APIView):
                 pdf_generator.add_paragraph(ptext=f"  {index}"+". "+peticion)
                 index+=1
 
+            #Fundamentos de derecho
+
+            pdf_generator.add_text("<b>Fundamentos y razones de derecho </b>")
+            pdf_generator.add_paragraph(ptext="La parte legitimada por activa dentro del presente proceso, tiene derecho a que le sean reconocidas las prestaciones sociales, consagradas en las normas laborales, pues entre las partes existió un contrato de trabajo verbal ( ó escrito, según sea el caso) a término indefinido y la empleadora no canceló los créditos correspondientes, respetuosamente solicito al señor (a) juez, se tengan las siguientes razones de derecho:")
+
+            index=1
+            for fundamento in request.data['fundamentosDeDerecho']:
+                pdf_generator.add_paragraph(ptext=f"{index}"+". "+fundamento)
+                index+=1
+
+
+
             #Pruebas
             pdf_generator.add_text("<b>Pruebas: </b>")
             pdf_generator.add_paragraph(ptext="Solicito señor Juez, que se sirva decretar y practicar las siguientes pruebas para que sean tenidas en cuenta al elaborarse el fallo respectivo: ")
